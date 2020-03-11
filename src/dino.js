@@ -33,6 +33,7 @@ class Dino {
     this.position = options.position;
     this.canvas = options.canvas;
     this.ctx = options.ctx;
+    this.game = options.game;
     this.falling = false;
     this.frames = 0;
     this.direction = 'idle';
@@ -56,16 +57,19 @@ class Dino {
   }
 
   // Toggles direction boolean
-  toggleDirection(direction, heldDown) {
+  toggleDirection(direction) {
     this.direction = direction;
 
     if (this.direction === 'ArrowUp') {
       this.isJumping = true;
+    } else if (this.direction === 'Space') {
+      this.shootFireball();
     }
   }
 
   // Gets the correct sprite
-  getSprite() {        
+  // Put space at the end because it can happen during jump or idle state
+  getSprite() {       
     if (!this.gameOver) {
       if (!this.onGround() || this.direction === 'ArrowUp') {
         return SPRITES.jump[0];
@@ -73,6 +77,8 @@ class Dino {
         return this.getIdleSprite(SPRITES.walk);
       } else if (this.direction === 'ArrowDown') {
         return this.getCrouchSprite(SPRITES.crouch);
+      } else if (this.direction === 'Space') {
+        return this.getIdleSprite(SPRITES.walk);
       }
     }
   }
@@ -105,8 +111,8 @@ class Dino {
 
   // Jumping action
   jump() {
-    const gravity = 0.3;
-    let jumpStrength = 6;
+    const gravity = 0.4;
+    let jumpStrength = 7;
 
     if (this.isJumping) {
       if (this.jumps === 0 || !this.onGround()) {
@@ -152,16 +158,18 @@ class Dino {
   }
 
   // Adds a fireball to the array to be shot by the player
-  // shootFireball() {
-  //   const fireball = new Fireball({
-  //     pos: this.pos,
-  //     vel: FIREBALL_VEL,
-  //     color: '000000',
-  //     // game: this.game
-  //   });
+  shootFireball() {
+    const startPos = [this.position[0] + 25, this.position[1] + 10];
 
-  //   // this.game.add(fireball);
-  // };
+    const fireball = new Fireball({
+      position: startPos,
+      speed: FIREBALL_VEL
+    });
+
+    this.game.addObject(fireball);
+
+    return fireball;
+  };
 
   // Draws the dino sprite
   draw(ctx) {

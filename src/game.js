@@ -18,7 +18,8 @@ class Game {
     this.dino = new Dino({
       position: [30, this.gameCanvas.height - 25], 
       canvas: this.gameCanvas, 
-      ctx: this.gameCtx
+      ctx: this.gameCtx,
+      game: this
     });
 
     // Setting an array of fireballs
@@ -40,8 +41,8 @@ class Game {
     this.createBackground(this.backgroundCtx, this.backgroundCanvas, this.foregroundCtx, this.foregroundCanvas);
   }
 
-  // Adding moving objects to respective arrays
-  addMovingObject(object) {
+  // Adding objects to respective arrays
+  addObject(object) {
     if (object instanceof Fireball) {
       this.fireballs.push(object);
     } else {
@@ -49,10 +50,10 @@ class Game {
     }
   };
 
-  // Removing moving objects from respective arrays
-  removeMovingObject(object) {
+  // Removing objects from respective arrays
+  removeObject(object) {
     if (object instanceof Fireball) {
-      this.bullets.splice(this.bullets.indexOf(object), 1);
+      this.fireballs.splice(this.fireballs.indexOf(object), 1);
     } else {
       throw new Error('Unknown type of object');
     }
@@ -60,12 +61,7 @@ class Game {
 
   // Checking to see if the position is out of bounds
   isOutOfBounds(pos) {
-    return pos[0] < 0 || pos[0] > this.gameCanvas.width;
-  };
-
-  // Creating an array of all moving objects
-  allObjects() {
-    return [].concat(this.fireballs);
+    return pos[0] > this.gameCanvas.width;
   };
 
   // Setting keypresses
@@ -81,14 +77,17 @@ class Game {
     // Array of valid key codes
     const validKeys = ['Space', 'ArrowUp', 'ArrowDown', 'Space'];
 
-    // Prevents continuous actions when key is held down
-    if (e.repeat && e.code != 'ArrowDown') {
-      this.dino.toggleDirection('idle');
-      return;
-    }
-
     if (!this.gameOver) {   
-      if (validKeys.includes(e.code)) this.dino.toggleDirection(`${e.code}`);
+      // Prevents continuous actions when key is held down
+      if (e.repeat) {
+        if (e.code !== 'ArrowDown') {
+          this.dino.toggleDirection('idle');
+        } else {
+          return;
+        }
+      } else if (validKeys.includes(e.code)) {
+        this.dino.toggleDirection(`${e.code}`);
+      } 
     }
   }
 
@@ -121,6 +120,13 @@ class Game {
       // Drawing background
       this.background.draw();
       this.foreground.draw();
+
+      // Drawing fireballs and cleaning up out of bounds fireballs
+      this.fireballs.forEach((fireball, idx) => {
+        fireball.update(this.gameCtx);
+
+        if (this.isOutOfBounds(fireball.position)) this.removeObject(fireball);
+      });
     }
   }
 
@@ -128,7 +134,6 @@ class Game {
   start() {
     this.draw();
   }
-
 }
 
 module.exports = Game;
