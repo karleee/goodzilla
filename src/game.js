@@ -38,7 +38,6 @@ class Game {
     this.draw = this.draw.bind(this);
     this.keyDownListener = this.keyDownListener.bind(this);
     this.keyUpListener = this.keyUpListener.bind(this);
-    this.generateEnemy = this.generateEnemy.bind(this);
 
     // Setting keypresses
     this.setKeypresses();
@@ -52,7 +51,7 @@ class Game {
     if (object instanceof Fireball) {
       this.fireballs.push(object);
     } else if (object instanceof MiniDevil) {
-      this.enemies.push(object);
+      if (this.enemies.length < this.maxEnemies) this.enemies.push(object);
     } else {
       throw new Error('Unknown type of object');
     }
@@ -131,33 +130,11 @@ class Game {
 
   // Creating enemies
   createEnemies() {
-    if (this.enemies.length < this.maxEnemies) {
-      setInterval(this.generateEnemy, 3000);
-    }
-    // if (this.obstacleInterval === 0 && this.obstacles.length < this.maxObstacles) {
-    //   if (Math.random() < 0.8 && this.trees < this.maxTrees - 1) {
-    //     this.nextSpawn = 8;
-    //     this.trees += 1;
-    //     this.obstacles.push(this.generateObstacle(true));
-    //   } else {
-    //     this.trees = 0;
-    //     this.obstacles.push(this.generateObstacle());
-    //   }
-    //   this.obstacleInterval += 1;
-    // } else if (this.obstacleInterval === this.nextSpawn) {
-    //   this.obstacleInterval = 0;
-    //   this.nextSpawn = this.spawnRate + Util.getRandomIntInclusive(0, 25);
-    // } else {
-    //   this.obstacleInterval += 1;
-    // }
-  }
-
-  // // Generating new enemy
-  generateEnemy() {
     let enemy;
-    enemy = new MiniDevil({ position: [this.gameCanvas.width + (Math.random() * 10), this.gameCanvas.height - 25], speed: 5});
+    enemy = new MiniDevil({ position: [this.gameCanvas.width + (Math.random() * 10), this.gameCanvas.height - 25], speed: 3 });
     this.addObject(enemy);
     return enemy;
+    // setInterval(this.generateEnemy, 4000);
   }
 
   // Storing all moving game objects in an array
@@ -167,14 +144,14 @@ class Game {
 
   // Drawing the game
   draw() {     
-    console.log(this.enemies.length);
+    console.log(this.enemies);
 
     if (!this.gameOver) {
       requestAnimationFrame(this.draw);
       this.dino.update(this.gameCtx);
 
       // Creating enemies
-      // this.createEnemies();
+      this.createEnemies();
 
       // Drawing background
       this.background.draw();
