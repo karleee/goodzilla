@@ -68,17 +68,14 @@ class Dino {
   }
 
   // Gets the correct sprite
-  // Put space at the end because it can happen during jump or idle state
   getSprite() {       
     if (!this.gameOver) {
       if (!this.onGround() || this.direction === 'ArrowUp') {
         return SPRITES.jump[0];
       } else if (this.direction === 'idle') {
         return this.getIdleSprite(SPRITES.walk);
-      } else if (this.direction === 'ArrowDown') {
+      } else if (this.direction === 'ArrowDown' || this.direction === 'Space') {
         return this.getCrouchSprite(SPRITES.crouch);
-      } else if (this.direction === 'Space') {
-        return this.getIdleSprite(SPRITES.walk);
       }
     }
   }
