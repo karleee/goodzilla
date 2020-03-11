@@ -1,6 +1,7 @@
 const Dino = require('./dino');
 const Fireball = require('./fireball');
 const Background = require('./background');
+const MiniDevil = require('./mini_devil');
 const Util = require('./util');
 
 class Game {
@@ -22,8 +23,12 @@ class Game {
       game: this
     });
 
-    // Setting an array of fireballs
+    // Setting empty arrays for game objects
     this.fireballs = [];
+    this.enemies = [];
+
+    // Setting max enemies (move this into parameter list for easy, medium, hard levels later)
+    this.maxEnemies = 5;
 
     // Setting game state
     this.gameOver = false;
@@ -33,6 +38,7 @@ class Game {
     this.draw = this.draw.bind(this);
     this.keyDownListener = this.keyDownListener.bind(this);
     this.keyUpListener = this.keyUpListener.bind(this);
+    this.generateEnemy = this.generateEnemy.bind(this);
 
     // Setting keypresses
     this.setKeypresses();
@@ -45,6 +51,8 @@ class Game {
   addObject(object) {
     if (object instanceof Fireball) {
       this.fireballs.push(object);
+    } else if (object instanceof MiniDevil) {
+      this.enemies.push(object);
     } else {
       throw new Error('Unknown type of object');
     }
@@ -54,14 +62,24 @@ class Game {
   removeObject(object) {
     if (object instanceof Fireball) {
       this.fireballs.splice(this.fireballs.indexOf(object), 1);
+    } else if (object instanceof MiniDevil) {
+      this.enemies.splice(this.enemies.indexOf(object), 1);
     } else {
       throw new Error('Unknown type of object');
     }
   }
 
   // Checking to see if the position is out of bounds
-  isOutOfBounds(pos) {
-    return pos[0] > this.gameCanvas.width;
+  isOutOfBounds(pos, type) {
+    let result;
+
+    if (type === 'fireball') {
+      result = pos[0] > this.gameCanvas.width;
+    } else {
+      result = pos[0] < 0;
+    }
+
+    return result;
   };
 
   // Setting keypresses
@@ -111,21 +129,65 @@ class Game {
     this.foreground = new Background(foregroundCtx, foregroundCanvas, foregroundImage, 10);
   }
 
+  // Creating enemies
+  createEnemies() {
+    if (this.enemies.length < this.maxEnemies) {
+      setInterval(this.generateEnemy, 3000);
+    }
+    // if (this.obstacleInterval === 0 && this.obstacles.length < this.maxObstacles) {
+    //   if (Math.random() < 0.8 && this.trees < this.maxTrees - 1) {
+    //     this.nextSpawn = 8;
+    //     this.trees += 1;
+    //     this.obstacles.push(this.generateObstacle(true));
+    //   } else {
+    //     this.trees = 0;
+    //     this.obstacles.push(this.generateObstacle());
+    //   }
+    //   this.obstacleInterval += 1;
+    // } else if (this.obstacleInterval === this.nextSpawn) {
+    //   this.obstacleInterval = 0;
+    //   this.nextSpawn = this.spawnRate + Util.getRandomIntInclusive(0, 25);
+    // } else {
+    //   this.obstacleInterval += 1;
+    // }
+  }
+
+  // // Generating new enemy
+  generateEnemy() {
+    let enemy;
+    enemy = new MiniDevil({ position: [this.gameCanvas.width + (Math.random() * 10), this.gameCanvas.height - 25], speed: 5});
+    this.addObject(enemy);
+    return enemy;
+  }
+
+  // Storing all moving game objects in an array
+  allObjects() {
+    return [].concat(this.fireballs, this.enemies);
+  }
+
   // Drawing the game
-  draw() {   
+  draw() {     
+    console.log(this.enemies.length);
+
     if (!this.gameOver) {
       requestAnimationFrame(this.draw);
       this.dino.update(this.gameCtx);
+
+      // Creating enemies
+      // this.createEnemies();
 
       // Drawing background
       this.background.draw();
       this.foreground.draw();
 
       // Drawing fireballs and cleaning up out of bounds fireballs
-      this.fireballs.forEach((fireball, idx) => {
-        fireball.update(this.gameCtx);
+      const allObjects = this.allObjects();
+      allObjects.forEach(object => {
+        object.update(this.gameCtx);
 
-        if (this.isOutOfBounds(fireball.position)) this.removeObject(fireball);
+        if (this.isOutOfBounds(object.position, 'fireball')) this.removeObject(object);
+
+        // if (this.isOutOfBounds(object.position, 'enemy')) this.removeObject(object);
       });
     }
   }
