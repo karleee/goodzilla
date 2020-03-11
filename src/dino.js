@@ -1,93 +1,173 @@
-// Hash with sprite dimensions and positions
-// sx, sy, sWidth, and sHeight (relate to source image)
-// dx, dy, dWidth, dHeight (relate to the canvas)
+const Fireball = require('./fireball');
 
-// Creating array of sprite positions for walking
+// Constants
+const FIREBALL_VEL = 5;
+
+// Creating arrays for sprite walking, jumping, and crouching
 const width = 24;
 const height = 24;
-// const firstSprite = [0, 0, width, height];
 let walk = [];
+let jump = [];
+let crouch = [];
 
 for (let i = 4; i < 10; i++) {
   walk.push([width * i, 0, width, height]);
 }
 
+jump = [[width * 11, 0, width, height]];
+
+for (let i = 18; i < 24; i++) {
+  crouch.push([width * i, 0, width, height]);
+}
+
 const SPRITES = {
-  walk
+  walk,
+  jump,
+  crouch
 };
 
 class Dino {
+  // Constructor for dino
   constructor(options) {
     // Setting player positioning and action
     this.position = options.position;
-    this.walkspeed = options.walkspeed ? options.walkspeed : 1;
-    this.falling = false;
-    this.jumping = false;
-    this.jumpCount = 0;
-    this.frames = 0;
-
-    // Setting canvas element
     this.canvas = options.canvas;
+    this.ctx = options.ctx;
+    this.falling = false;
+    this.frames = 0;
+    this.direction = 'idle';
+    this.gameOver = false;
 
     // Setting new HTML img element
     // eventually add different dino color selection here...
     this.dino = new Image();
-    this.dino.src = './assets/spritesheets/red_dino.png';
 
-    // Setting game over state
-    this.gameOver = false;
+    // Preventing browser(s) from smoothing out/blurring lines
+    this.ctx.mozImageSmoothingEnabled = false;
+    this.ctx.webkitImageSmoothingEnabled = false;
+    this.ctx.msImageSmoothingEnabled = false;
+    this.ctx.imageSmoothingEnabled = false;
+
+    this.dino.src = '../dist/assets/spritesheets/red_dino.png';
+
+    // Setting jump counter and boolean
+    this.jumps = 0;
+    this.isJumping = false;
   }
 
-  // Checks if player is on the ground
-  onGround() {
-    // temp set height to 0 for ground for testing (use this.canvas.height - # later on...)
-    return this.position[0] === 30 && this.position[1] >= 30;
+  // Toggles direction boolean
+  toggleDirection(direction, heldDown) {
+    this.direction = direction;
+
+    if (this.direction === 'ArrowUp') {
+      this.isJumping = true;
+    }
   }
 
-  // Toggles jump boolean
-  toggleJump() {
-    this.jumping = true;
-  }
-
-  // Gets the correct sprites
-  getSprite() {
-    // console.log(SPRITES.walk);
-    const walkCycle = SPRITES.walk;
-
-    if (this.onGround() && !this.gameOver) {
-      if (this.frames < 10) {
-        this.frames += 1;
-        return walkCycle[0];
-      } else if (this.frames < 20) {
-        this.frames += 1;
-        return walkCycle[1];
-      } else if (this.frames < 30) {
-        this.frames += 1;
-        return walkCycle[2];
-      } else if (this.frames < 40) {
-        this.frames += 1;
-        return walkCycle[3];
-      } else if (this.frames < 50) {
-        this.frames += 1;
-        return walkCycle[4];
-      } else if (this.frames < 60) {
-        this.frames += 1;
-        return walkCycle[5];
-      } else {
-        this.frames = 0;
-        return walkCycle[5];
+  // Gets the correct sprite
+  getSprite() {        
+    if (!this.gameOver) {
+      if (!this.onGround() || this.direction === 'ArrowUp') {
+        return SPRITES.jump[0];
+      } else if (this.direction === 'idle') {
+        return this.getIdleSprite(SPRITES.walk);
+      } else if (this.direction === 'ArrowDown') {
+        return this.getCrouchSprite(SPRITES.crouch);
       }
     }
   }
+
+  // Gets idle sprite
+  getIdleSprite(sprites) {
+    if (this.frames < 10) {
+      this.frames += 1;
+      return sprites[0];
+    } else if (this.frames < 15) {
+      this.frames += 1;
+      return sprites[1];
+    } else if (this.frames < 25) {
+      this.frames += 1;
+      return sprites[2];
+    } else if (this.frames < 30) {
+      this.frames += 1;
+      return sprites[3];
+    } else if (this.frames < 35) {
+      this.frames += 1;
+      return sprites[4];
+    } else if (this.frames < 40) {
+      this.frames += 1;
+      return sprites[5];
+    } else {
+      this.frames = 0;
+      return sprites[5];
+    }
+  }
+
+  // Jumping action
+  jump() {
+    const gravity = 0.3;
+    let jumpStrength = 6;
+
+    if (this.isJumping) {
+      if (this.jumps === 0 || !this.onGround()) {
+        this.position[1] -= jumpStrength - gravity * this.jumps;
+        this.jumps += 1;
+      } else {
+        this.position[1] = this.canvas.height - 25;
+        this.jumps = 0;
+        this.isJumping = false;
+      }
+    }
+  }
+
+  // Gets crouch sprite
+  getCrouchSprite(sprites) {  
+    if (this.frames < 10) {
+      this.frames += 1;
+      return sprites[0];
+    } else if (this.frames < 15) {
+      this.frames += 1;
+      return sprites[1];
+    } else if (this.frames < 25) {
+      this.frames += 1;
+      return sprites[2];
+    } else if (this.frames < 30) {
+      this.frames += 1;
+      return sprites[3];
+    } else if (this.frames < 35) {
+      this.frames += 1;
+      return sprites[4];
+    } else if (this.frames < 40) {
+      this.frames += 1;
+      return sprites[5];
+    } else {
+      this.frames = 0;
+      return sprites[5];
+    }
+  }
+
+  // Checks if dino is on the ground
+  onGround() {
+    return this.position[0] === 30 && this.position[1] >= this.canvas.height - 25;
+  }
+
+  // Adds a fireball to the array to be shot by the player
+  // shootFireball() {
+  //   const fireball = new Fireball({
+  //     pos: this.pos,
+  //     vel: FIREBALL_VEL,
+  //     color: '000000',
+  //     // game: this.game
+  //   });
+
+  //   // this.game.add(fireball);
+  // };
 
   // Draws the dino sprite
   draw(ctx) {
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
     const sprite = this.getSprite();
-
-    console.log('Sprite: ' + sprite);
-    console.log('Frames: ' + this.frames);
 
     ctx.drawImage(
       this.dino,
@@ -103,6 +183,7 @@ class Dino {
   }
 
   update(ctx) {
+    this.jump();
     this.draw(ctx);
   }
 }

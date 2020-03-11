@@ -6,11 +6,18 @@
   <script type="application/javascript" src="./main.js"></script>
   <link rel="stylesheet" type="text/css" href="./assets/stylesheets/reset.css">
   <link rel="stylesheet" type="text/css" href="./assets/stylesheets/index.css">
-  <title>Godzilla</title>
+  <title>Goodzilla</title>
 </head>
 <body>
-  <canvas id="game-canvas"></canvas>
-
-  <h1>Testing...</h1>
+  
+  <canvas id="background-canvas"></canvas>
+  
+  <canvas id="foreground-canvas" height="302" width="802"></canvas>
+  
+  <div class="overlay-wrapper"></div>
+  
+  <canvas id="game-canvas" tabindex="1"></canvas>
+  
+  <p>Press tab to play</p>
 </body>
 </html>
