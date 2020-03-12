@@ -2,8 +2,8 @@ const Dino = require('./dino');
 const Fireball = require('./fireball');
 const Background = require('./background');
 const Enemy = require('./enemy');
-const Util = require('./util');
 const GameOverMenu = require('./game_over');
+const Util = require('./util');
 
 const MAX_ENEMIES = 10;
 
@@ -172,7 +172,6 @@ class Game {
 
   // Checking for collisions between fireballs and enemies
   checkCollisions() {
-    const dino = this.dino;
     const fireballs = this.fireballs;
     const enemies = this.enemies;
       
@@ -216,19 +215,12 @@ class Game {
     this.background.draw();
     this.foreground.draw();
 
+    // Adding enemies to game
     this.addEnemies();
   }
 
   // Replays a new game
   replay() {
-    // this.dino = this.addDino();
-    // this.fireballs = [];
-    // this.enemies = [];
-    // this.gameOver = false;
-
-    // console.log(this.allObjects());
-    // this.start(); 
-
     this.start();
   }
 

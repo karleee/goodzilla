@@ -11,6 +11,7 @@ const HEIGHT = 24;
 let walk = [];
 let jump = [];
 let crouch = [];
+let hit = [];
 
 for (let i = 4; i < 10; i++) {
   walk.push([WIDTH * i, 0, WIDTH, HEIGHT]);
@@ -22,10 +23,20 @@ for (let i = 18; i < 24; i++) {
   crouch.push([WIDTH * i, 0, WIDTH, HEIGHT]);
 }
 
+// Populating hit array
+for (let i = 14; i < 17; i++) {
+  hit.push([WIDTH * i, 0, WIDTH, HEIGHT]);
+}
+
+hit.push([WIDTH * 7, 0, WIDTH, HEIGHT]);
+hit.push([WIDTH * 8, 0, WIDTH, HEIGHT]);
+hit.push([WIDTH * 9, 0, WIDTH, HEIGHT]);
+
 const SPRITES = {
   walk,
   jump,
-  crouch
+  crouch,
+  hit
 };
 
 class Dino {
@@ -72,9 +83,9 @@ class Dino {
 
   // Gets the correct sprite
   getSprite() {       
-    if (!this.gameOver) {
+    // if (!this.gameOver) {
       if (this.gameOver) {
-        return SPRITES.crouch[0];
+        return this.getHitSprite(SPRITES.hit);
       } else if (!this.onGround() || this.direction === 'ArrowUp') {
         return SPRITES.jump[0];
       } else if (this.direction === 'idle') {
@@ -82,6 +93,32 @@ class Dino {
       } else if (this.direction === 'ArrowDown' || this.direction === 'Space') {
         return this.getCrouchSprite(SPRITES.crouch);
       }
+    // }
+  }
+
+  getHitSprite(sprites) {
+    console.log(sprites);
+    if (this.frames < 10) {
+      this.frames += 1;
+      return sprites[0];
+    } else if (this.frames < 15) {
+      this.frames += 1;
+      return sprites[1];
+    } else if (this.frames < 20) {
+      this.frames += 1;
+      return sprites[2];
+    } else if (this.frames < 25) {
+      this.frames += 1;
+      return sprites[3];
+    } else if (this.frames < 30) {
+      this.frames += 1;
+      return sprites[4];
+    } else if (this.frames < 35) {
+      this.frames += 1;
+      return sprites[5];
+    } else if (this.frames < 40) {
+      this.frames = 0;
+      return sprites[5];
     }
   }
 
@@ -93,16 +130,16 @@ class Dino {
     } else if (this.frames < 15) {
       this.frames += 1;
       return sprites[1];
-    } else if (this.frames < 25) {
+    } else if (this.frames < 20) {
       this.frames += 1;
       return sprites[2];
-    } else if (this.frames < 30) {
+    } else if (this.frames < 25) {
       this.frames += 1;
       return sprites[3];
-    } else if (this.frames < 35) {
+    } else if (this.frames < 30) {
       this.frames += 1;
       return sprites[4];
-    } else if (this.frames < 40) {
+    } else if (this.frames < 35) {
       this.frames += 1;
       return sprites[5];
     } else {
@@ -136,16 +173,16 @@ class Dino {
     } else if (this.frames < 15) {
       this.frames += 1;
       return sprites[1];
-    } else if (this.frames < 25) {
+    } else if (this.frames < 20) {
       this.frames += 1;
       return sprites[2];
-    } else if (this.frames < 30) {
+    } else if (this.frames < 25) {
       this.frames += 1;
       return sprites[3];
-    } else if (this.frames < 35) {
+    } else if (this.frames < 30) {
       this.frames += 1;
       return sprites[4];
-    } else if (this.frames < 40) {
+    } else if (this.frames < 35) {
       this.frames += 1;
       return sprites[5];
     } else {

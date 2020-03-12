@@ -13,10 +13,9 @@ class GameOverMenu {
   }
 
   // Prepares for game's replay function
-  setReplay(e) {
+  setReplay() {
     const menu = document.getElementById('game-over-menu');
-    menu.classList.remove('active');
-
+    menu.classList.remove('active');    
     this.game.replay();
   }
 

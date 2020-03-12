@@ -77,10 +77,12 @@ canvas {
 
 .game-over-container button {
   width: 100px;
+  padding: 15px;
   color: black;
 }
 
 .game-over-container button:hover {
+  background: lightblue;
   cursor: pointer;
 }
 
