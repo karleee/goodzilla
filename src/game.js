@@ -240,6 +240,8 @@ class Game {
 
   // temp start function for game
   start() {
+    this.gameCanvas.focus();
+    
     if (!this.gameOver) {
       this.draw(this.gameCtx);
       this.updateObjects(this.gameCtx);

@@ -1,6 +1,4 @@
-const Game = require('./game');
 const GameStartMenu = require('./game_start');
-const Dino = require('./dino');
 
 document.addEventListener('DOMContentLoaded', function () {
   // Getting main game canvas
@@ -15,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const foregroundCanvas = document.getElementById('foreground-canvas');
   const foregroundCanvasCtx = foregroundCanvas.getContext('2d');
 
-  // Display start menu
-  const startMenu = new GameStartMenu({
+  // Setting options hash
+  const options = ({
     gameCanvasCtx,
     gameCanvas,
     backgroundCanvasCtx,
@@ -24,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
     foregroundCanvasCtx,
     foregroundCanvas
   });
+
+  const startMenu = new GameStartMenu(options);
 
   startMenu.draw();
 });

@@ -9,12 +9,45 @@
   <title>Goodzilla</title>
 </head>
 <body>
-    <div id="game-start-menu" class="game-start-container">
+  <div id="game-start-menu" class="game-start-container">
+    <div class="title-wrapper">
       <h1>Goodzilla</h1>
-      <h2>Choose your dino:</h2>
-      <button class="color-button-wrapper" value="red">Red</button>
-      <button class="color-button-wrapper" value="green">Green</button>
     </div>
+   
+    <div class="choices-container">
+      <button class="choice-button-wrapper" value="play">Play</button>
+      <button class="choice-button-wrapper" value="instructions">Instructions</button>
+    </div>
+  </div>
+
+  <div id="game-instructions-menu" class="game-instructions-container">
+    <div class="header-wrapper">
+      <h1>How to Play</h1>
+    </div>
+   
+    <div class="keyboard-container">
+      <p>Put keyboard instructions here</p>
+    </div>
+
+    <div class="links-wrapper">
+      <button id="instructions-main-menu-button-wrapper">Back to Main Menu</button>
+    </div>
+  </div>
+
+  <div id="game-character-menu" class="game-character-container">
+    <h1>Choose your dino:</h1>
+    
+    <div class="buttons-container">
+      <button class="color-button-wrapper" value="red"><img src="./assets/images/character_menu/red_dino.gif" alt="Red dino"></button>
+      <button class="color-button-wrapper" value="blue"><img src="./assets/images/character_menu/blue_dino.gif" alt="Blue dino"></button>
+      <button class="color-button-wrapper" value="yellow"><img src="./assets/images/character_menu/yellow_dino.gif" alt="Yellow dino"></button>
+      <button class="color-button-wrapper" value="green"><img src="./assets/images/character_menu/green_dino.gif" alt="Green dino"></button>
+    </div>
+
+    <div class="links-wrapper">
+      <button id="character-main-menu-button-wrapper" value="main-menu">Back to Main Menu</button>
+    </div>
+  </div>
   
   <div class="canvas-container">
     <canvas id="background-canvas"></canvas>

@@ -1,47 +1,37 @@
-const Game = require('./game');
+const GameCharacterMenu = require('./game_character');
+const GameInstructionsMenu = require('./game_instructions');
 
 class GameStartMenu {
   // Constructor for GameStartMenu class
   constructor(options) {
-    this.gameCanvasCtx = options.gameCanvasCtx;
-    this.gameCanvas = options.gameCanvas;
-    this.backgroundCanvasCtx = options.backgroundCanvasCtx;
-    this.backgroundCanvas = options.backgroundCanvas;
-    this.foregroundCanvasCtx = options.foregroundCanvasCtx;
-    this.foregroundCanvas = options.foregroundCanvas;
-    this.startGame = this.startGame.bind(this);
+    this.options = options;
+    this.startChoice = this.startChoice.bind(this);
   }
 
-  // Handles user clicks on replay button
+  // Handles user clicks on choices button
   clickHandler() {
-    const colors = document.getElementsByClassName('color-button-wrapper');
+    const choices = document.getElementsByClassName('choice-button-wrapper');
 
-    for (let i = 0; i < colors.length; i++) {
-      colors[i].addEventListener('click', e => this.startGame(e));
+    for (let i = 0; i < choices.length; i++) {
+      choices[i].addEventListener('click', e => this.startChoice(e));
     }
   }
 
-  // Starts a game
-  startGame(e) {
+  // Takes user to the choice's screen
+  startChoice(e) {
     const menu = document.getElementById('game-start-menu');
     menu.classList.remove('active');
-
-    const dinoColor = e.target.value;
-
-    const game = new Game(
-      this.gameCanvasCtx,
-      this.gameCanvas,
-      this.backgroundCanvasCtx,
-      this.backgroundCanvas,
-      this.foregroundCanvasCtx,
-      this.foregroundCanvas,
-      dinoColor
-    );
-
-    game.start();
+    
+    if (e.target.value === 'play') {
+      const characterMenu = new GameCharacterMenu(this.options);
+      characterMenu.draw();
+    } else if (e.target.value === 'instructions') {
+      const instructionsMenu = new GameInstructionsMenu(this.options);
+      instructionsMenu.draw();
+    }
   }
 
-  // Drawing the game over menu
+  // Drawing the game start menu
   draw() {
     const menu = document.getElementById('game-start-menu');
     menu.classList.add('active');
