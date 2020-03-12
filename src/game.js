@@ -221,7 +221,8 @@ class Game {
 
   // Replays a new game
   replay() {
-    this.start();
+    this.gameOver = false;
+    console.log('hi');
   }
 
   // temp start function for game
@@ -233,6 +234,7 @@ class Game {
       this.checkPlayerCollisions();
       requestAnimationFrame(this.start.bind(this));
     } else {
+      debugger;
       const gameOver = new GameOverMenu({ game: this });
       gameOver.draw();
     }
