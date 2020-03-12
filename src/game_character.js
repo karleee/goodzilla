@@ -30,7 +30,7 @@ class GameCharacterMenu {
     const menu = document.getElementById('game-character-menu');
     menu.classList.remove('active');
 
-    const dinoColor = e.target.value;
+    const dinoColor = e.target.parentNode.value;
 
     const game = new Game(
       this.gameCanvasCtx,
@@ -41,7 +41,7 @@ class GameCharacterMenu {
       this.foregroundCanvas,
       dinoColor
     );
-
+    
     game.start();
   }
 

@@ -17,7 +17,7 @@ class Game {
     this.backgroundCanvas = backgroundCanvas;
     this.foregroundCtx = foregroundCtx;
     this.foregroundCanvas = foregroundCanvas;
-    this.dinoColor = dinoColor || 'green';
+    this.dinoColor = dinoColor;
 
     // Setting up game objects
     this.dino = [];
@@ -25,7 +25,7 @@ class Game {
     this.enemies = [];
 
     // Setting game assets
-    this.addDino();
+    this.addDino(this.dinoColor);
     this.addBackground(this.backgroundCtx, this.backgroundCanvas, this.foregroundCtx, this.foregroundCanvas);
 
     // Setting game state
@@ -43,13 +43,13 @@ class Game {
   }
 
   // Adding dino player to the game
-  addDino() {
+  addDino(dinoColor) {
     const dino = new Dino({
       position: [30, this.gameCanvas.height - 25],
       canvas: this.gameCanvas,
       ctx: this.gameCtx,
       game: this,
-      dinoColor: this.dinoColor
+      dinoColor
     });
 
     this.add(dino);
@@ -239,9 +239,9 @@ class Game {
   }
 
   // temp start function for game
-  start() {
+  start() {        
     this.gameCanvas.focus();
-    
+
     if (!this.gameOver) {
       this.draw(this.gameCtx);
       this.updateObjects(this.gameCtx);

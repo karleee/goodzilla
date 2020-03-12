@@ -51,6 +51,8 @@ class Dino {
     this.frames = 0;
     this.direction = 'idle';
 
+    // debugger;
+
     // Setting game state boolean
     this.gameOver = false;
 
@@ -65,6 +67,9 @@ class Dino {
     this.ctx.imageSmoothingEnabled = false;
 
     this.dino.src = `../dist/assets/spritesheets/${this.dinoColor}_dino.png`;
+    this.dino.alt = `${this.dinoColor} dino`;
+
+    // debugger;
 
     // Setting jump counter and boolean
     this.jumps = 0;
