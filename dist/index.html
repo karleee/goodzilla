@@ -9,16 +9,20 @@
   <title>Goodzilla</title>
 </head>
 <body>
+    <div id="game-start-menu" class="game-start-container">
+      <h1>Goodzilla</h1>
+      <h2>Choose your dino:</h2>
+      <button class="color-button-wrapper" value="red">Red</button>
+      <button class="color-button-wrapper" value="green">Green</button>
+    </div>
   
   <div class="canvas-container">
     <canvas id="background-canvas"></canvas>
-    <canvas id="foreground-canvas" height="302" width="802"></canvas>
+    <canvas id="foreground-canvas"></canvas>
     <div class="overlay-wrapper"></div>
     <canvas id="game-canvas" tabindex="1"></canvas>
   </div>
   
-  <p>Press tab to play</p>
-
   <div id="game-over-menu" class="game-over-container">
     <h1>Game Over</h1>
     <button id="replay-button" class="replay-button-wrapper">Replay</button>

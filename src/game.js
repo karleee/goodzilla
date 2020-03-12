@@ -9,7 +9,7 @@ const MAX_ENEMIES = 10;
 
 class Game {
   // Constructor for game
-  constructor(gameCtx, gameCanvas, backgroundCtx, backgroundCanvas, foregroundCtx, foregroundCanvas) {
+  constructor(gameCtx, gameCanvas, backgroundCtx, backgroundCanvas, foregroundCtx, foregroundCanvas, dinoColor) {
     // Setting context and canvas
     this.gameCtx = gameCtx;
     this.gameCanvas = gameCanvas;
@@ -17,6 +17,7 @@ class Game {
     this.backgroundCanvas = backgroundCanvas;
     this.foregroundCtx = foregroundCtx;
     this.foregroundCanvas = foregroundCanvas;
+    this.dinoColor = dinoColor || 'green';
 
     // Setting up game objects
     this.dino = [];
@@ -47,7 +48,8 @@ class Game {
       position: [30, this.gameCanvas.height - 25],
       canvas: this.gameCanvas,
       ctx: this.gameCtx,
-      game: this
+      game: this,
+      dinoColor: this.dinoColor
     });
 
     this.add(dino);
@@ -157,7 +159,7 @@ class Game {
     // Foreground
     const foregroundImage = new Image();
     foregroundImage.src = '../dist/assets/images/foreground.png';
-    this.foreground = new Background(foregroundCtx, foregroundCanvas, foregroundImage, 15);
+    this.foreground = new Background(foregroundCtx, foregroundCanvas, foregroundImage, 10);
   }
 
   // Storing all moving game objects in an array
@@ -221,8 +223,19 @@ class Game {
 
   // Replays a new game
   replay() {
+    const dino = this.dino[0];
+
+    document.getElementById('game-canvas').focus();
+
+    // Resetting game variables
     this.gameOver = false;
-    console.log('hi');
+    this.timeInterval = 0;
+    dino.frames = 0;
+    dino.gameOver = false;
+    this.fireballs = [];
+    this.enemies = [];
+
+    this.start();
   }
 
   // temp start function for game
@@ -234,7 +247,6 @@ class Game {
       this.checkPlayerCollisions();
       requestAnimationFrame(this.start.bind(this));
     } else {
-      debugger;
       const gameOver = new GameOverMenu({ game: this });
       gameOver.draw();
     }

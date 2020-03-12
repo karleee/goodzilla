@@ -47,6 +47,7 @@ class Dino {
     this.canvas = options.canvas;
     this.ctx = options.ctx;
     this.game = options.game;
+    this.dinoColor = options.dinoColor;
     this.frames = 0;
     this.direction = 'idle';
 
@@ -63,7 +64,7 @@ class Dino {
     this.ctx.msImageSmoothingEnabled = false;
     this.ctx.imageSmoothingEnabled = false;
 
-    this.dino.src = '../dist/assets/spritesheets/red_dino.png';
+    this.dino.src = `../dist/assets/spritesheets/${this.dinoColor}_dino.png`;
 
     // Setting jump counter and boolean
     this.jumps = 0;
@@ -97,7 +98,6 @@ class Dino {
   }
 
   getHitSprite(sprites) {
-    console.log(sprites);
     if (this.frames < 10) {
       this.frames += 1;
       return sprites[0];
