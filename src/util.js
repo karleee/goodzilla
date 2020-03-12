@@ -8,6 +8,10 @@ const Util = {
   inherits(ChildClass, BaseClass) {
     ChildClass.prototype = Object.create(BaseClass.prototype);
     ChildClass.prototype.constructor = ChildClass;
+  },
+  // Gets a random number
+  randomNum(max, min) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 };
 

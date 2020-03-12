@@ -1,23 +1,25 @@
 const Fireball = require('./fireball');
+const Enemy = require('./enemy');
+const Util = require('./util');
 
 // Constants
 const FIREBALL_VEL = 5;
+const WIDTH = 24;
+const HEIGHT = 24;
 
 // Creating arrays for sprite walking, jumping, and crouching
-const width = 24;
-const height = 24;
 let walk = [];
 let jump = [];
 let crouch = [];
 
 for (let i = 4; i < 10; i++) {
-  walk.push([width * i, 0, width, height]);
+  walk.push([WIDTH * i, 0, WIDTH, HEIGHT]);
 }
 
-jump = [[width * 11, 0, width, height]];
+jump = [[WIDTH * 11, 0, WIDTH, HEIGHT]];
 
 for (let i = 18; i < 24; i++) {
-  crouch.push([width * i, 0, width, height]);
+  crouch.push([WIDTH * i, 0, WIDTH, HEIGHT]);
 }
 
 const SPRITES = {
@@ -34,9 +36,10 @@ class Dino {
     this.canvas = options.canvas;
     this.ctx = options.ctx;
     this.game = options.game;
-    this.falling = false;
     this.frames = 0;
     this.direction = 'idle';
+
+    // Setting game state boolean
     this.gameOver = false;
 
     // Setting new HTML img element
@@ -70,7 +73,9 @@ class Dino {
   // Gets the correct sprite
   getSprite() {       
     if (!this.gameOver) {
-      if (!this.onGround() || this.direction === 'ArrowUp') {
+      if (this.gameOver) {
+        return SPRITES.crouch[0];
+      } else if (!this.onGround() || this.direction === 'ArrowUp') {
         return SPRITES.jump[0];
       } else if (this.direction === 'idle') {
         return this.getIdleSprite(SPRITES.walk);
@@ -108,8 +113,8 @@ class Dino {
 
   // Jumping action
   jump() {
-    const gravity = 0.4;
-    let jumpStrength = 7;
+    const gravity = 0.6;
+    let jumpStrength = 9;
 
     if (this.isJumping) {
       if (this.jumps === 0 || !this.onGround()) {
@@ -160,18 +165,45 @@ class Dino {
 
     const fireball = new Fireball({
       position: startPos,
-      speed: FIREBALL_VEL
+      speed: FIREBALL_VEL,
+      game: this.game
     });
 
-    this.game.addObject(fireball);
+    this.game.add(fireball);
 
     return fireball;
   };
 
+  // Checks if the dino collieded with an enemy
+  collidedWith(otherObject) {
+    const posX = this.hitbox().minX;
+    const posY = this.hitbox().minY;
+
+    const collided = (posX < otherObject.hitbox().minX + otherObject.hitbox().width &&
+      posX + this.hitbox().width > otherObject.hitbox().minX &&
+      posY < otherObject.hitbox().minY + otherObject.hitbox().height &&
+      posY + this.hitbox().height > otherObject.hitbox().minY);
+
+    if (collided) {
+      this.gameOver = true;
+      return true;
+    }
+
+    return false;
+  };
+
+  // Hitbox for dino
+  hitbox() {
+    return {
+      minX: this.position[0] + 6,
+      minY: this.position[1] + 5,
+      width: WIDTH - 9,
+      height: HEIGHT - 8
+    };
+  }
+
   // Draws the dino sprite
-  draw(ctx) {
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
+  draw(ctx) {    
     const sprite = this.getSprite();
 
     ctx.drawImage(

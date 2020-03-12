@@ -10,14 +10,18 @@
 </head>
 <body>
   
-  <canvas id="background-canvas"></canvas>
-  
-  <canvas id="foreground-canvas" height="302" width="802"></canvas>
-  
-  <div class="overlay-wrapper"></div>
-  
-  <canvas id="game-canvas" tabindex="1"></canvas>
+  <div class="canvas-container">
+    <canvas id="background-canvas"></canvas>
+    <canvas id="foreground-canvas" height="302" width="802"></canvas>
+    <div class="overlay-wrapper"></div>
+    <canvas id="game-canvas" tabindex="1"></canvas>
+  </div>
   
   <p>Press tab to play</p>
+
+  <div id="game-over-menu" class="game-over-container">
+    <h1>Game Over</h1>
+    <button id="replay-button" class="replay-button-wrapper">Replay</button>
+  </div>
 </body>
 </html>
