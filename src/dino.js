@@ -51,8 +51,6 @@ class Dino {
     this.frames = 0;
     this.direction = 'idle';
 
-    // debugger;
-
     // Setting game state boolean
     this.gameOver = false;
 

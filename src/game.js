@@ -37,6 +37,7 @@ class Game {
     this.draw = this.draw.bind(this);
     this.keyDownListener = this.keyDownListener.bind(this);
     this.keyUpListener = this.keyUpListener.bind(this);
+    this.replay = this.replay.bind(this);
 
     // Setting keypresses
     this.setKeypresses();
@@ -117,6 +118,8 @@ class Game {
   setKeypresses() {
     this.gameCanvas.addEventListener('keydown', this.keyDownListener);
     this.gameCanvas.addEventListener('keyup', this.keyUpListener);
+    const replay = document.getElementById('replay-button');
+    replay.addEventListener('click', this.replay);
   }
 
   // Handler for key down
@@ -202,6 +205,8 @@ class Game {
       if (obj1.collidedWith(obj2)) {
         const collision = obj1.collidedWith(obj2);
         if (collision) {
+          const menu = document.getElementById('game-over-menu');
+          menu.classList.add('active'); 
           this.gameOver = true;
           return;
         }
@@ -223,6 +228,9 @@ class Game {
 
   // Replays a new game
   replay() {
+    const menu = document.getElementById('game-over-menu');
+    menu.classList.remove('active'); 
+
     const dino = this.dino[0];
 
     document.getElementById('game-canvas').focus();
@@ -249,8 +257,8 @@ class Game {
       this.checkPlayerCollisions();
       requestAnimationFrame(this.start.bind(this));
     } else {
-      const gameOver = new GameOverMenu({ game: this });
-      gameOver.draw();
+      // const menu = document.getElementById('game-over-menu');
+      // menu.classList.add('active');
     }
   }
 }
