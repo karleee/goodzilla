@@ -1,6 +1,4 @@
 const Fireball = require('./fireball');
-const Enemy = require('./enemy');
-const Util = require('./util');
 
 // Constants
 const FIREBALL_VEL = 5;
@@ -51,11 +49,7 @@ class Dino {
     this.frames = 0;
     this.direction = 'idle';
 
-    // Setting game state boolean
-    this.gameOver = false;
-
-    // Setting new HTML img element
-    // eventually add different dino color selection here...
+    // Setting dino image
     this.dino = new Image();
 
     // Preventing browser(s) from smoothing out/blurring lines
@@ -67,11 +61,10 @@ class Dino {
     this.dino.src = `../dist/assets/spritesheets/${this.dinoColor}_dino.png`;
     this.dino.alt = `${this.dinoColor} dino`;
 
-    // debugger;
-
-    // Setting jump counter and boolean
+    // Setting dino status booleans
     this.jumps = 0;
     this.isJumping = false;
+    this.isHit = false;
   }
 
   // Toggles direction boolean
@@ -87,17 +80,15 @@ class Dino {
 
   // Gets the correct sprite
   getSprite() {       
-    // if (!this.gameOver) {
-      if (this.gameOver) {
-        return this.getHitSprite(SPRITES.hit);
-      } else if (!this.onGround() || this.direction === 'ArrowUp') {
-        return SPRITES.jump[0];
-      } else if (this.direction === 'idle') {
-        return this.getIdleSprite(SPRITES.walk);
-      } else if (this.direction === 'ArrowDown' || this.direction === 'Space') {
-        return this.getCrouchSprite(SPRITES.crouch);
-      }
-    // }
+    if (this.isHit) {
+      return this.getHitSprite(SPRITES.hit);
+    } else if (!this.onGround() || this.direction === 'ArrowUp') {
+      return SPRITES.jump[0];
+    } else if (this.direction === 'idle') {
+      return this.getIdleSprite(SPRITES.walk);
+    } else if (this.direction === 'ArrowDown' || this.direction === 'Space') {
+      return this.getCrouchSprite(SPRITES.crouch);
+    }
   }
 
   getHitSprite(sprites) {
@@ -201,12 +192,13 @@ class Dino {
 
   // Adds a fireball to the array to be shot by the player
   shootFireball() {
-    const startPos = [this.position[0] + 25, this.position[1] + 10];
+    const startPos = [this.position[0] + 5, this.position[1] - 5];
 
     const fireball = new Fireball({
       position: startPos,
       speed: FIREBALL_VEL,
-      game: this.game
+      game: this.game,
+      ctx: this.ctx
     });
 
     this.game.add(fireball);
@@ -225,7 +217,7 @@ class Dino {
       posY + this.hitbox().height > otherObject.hitbox().minY);
 
     if (collided) {
-      this.gameOver = true;
+      this.isHit = true;
       return true;
     }
 

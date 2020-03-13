@@ -1,16 +1,59 @@
-const Util = require('./util');
+// Width and height of a sprite
+const WIDTH = 33;
+const HEIGHT = 33;
 
-const WIDTH = 10;
-const HEIGHT = 10;
+// Creating array for fireball sprite
+let fireballSprites = [];
+
+for (let i = 0; i < 5; i++) {
+  fireballSprites.push([WIDTH * i, 0, WIDTH, HEIGHT]);
+}
 
 class Fireball {
-  constructor(options) {
+  constructor(options) {    
     this.position = options.position;
     this.speed = options.speed;
     this.game = options.game;
+    this.ctx = options.ctx;
     this.radius = 3;
     this.color = 'yellow';
     this.isWrappable = false;
+    this.frames = 0;
+
+    // Setting fireball image
+    this.fireball = new Image();
+
+    // Preventing browser(s) from smoothing out/blurring lines
+    this.ctx.mozImageSmoothingEnabled = false;
+    this.ctx.webkitImageSmoothingEnabled = false;
+    this.ctx.msImageSmoothingEnabled = false;
+    this.ctx.imageSmoothingEnabled = false;
+
+    this.fireball.src = '../dist/assets/spritesheets/fireball.png';
+    this.fireball.alt = 'Fireball';
+  }
+
+  // Gets fireball sprite
+  getSprite(sprites) {
+    if (this.frames < 5) {
+      this.frames += 1;
+      return sprites[0];
+    } else if (this.frames < 10) {
+      this.frames += 1;
+      return sprites[1];
+    } else if (this.frames < 15) {
+      this.frames += 1;
+      return sprites[2];
+    } else if (this.frames < 20) {
+      this.frames += 1;
+      return sprites[3];
+    } else if (this.frames < 25) {
+      this.frames += 1;
+      return sprites[4];
+    } else {
+      this.frames = 0;
+      return sprites[4];
+    }
   }
 
   // Moving a fireball
@@ -32,7 +75,6 @@ class Fireball {
   // Removing a fireball
   remove() {
     this.game.remove(this);
-    // this.game.fireballs.pop();
   };
 
   collidedWith(otherObject) {
@@ -52,13 +94,39 @@ class Fireball {
 
   // Drawing a fireball
   draw(ctx) {
-    ctx.fillStyle = this.color;
+    //hitbox
+    // ctx.beginPath();
+    // ctx.strokeStyle = 'red';
+    // ctx.fillStyle = 'red';
+    // ctx.fillRect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
+    // ctx.stroke();
 
-    ctx.beginPath();
-    ctx.arc(
-      this.position[0], this.position[1], this.radius, 0, 2 * Math.PI, true
+    // sprite
+    const sprite = this.getSprite(fireballSprites);
+
+    ctx.drawImage(
+      this.fireball,
+      sprite[0],
+      sprite[1],
+      sprite[2],
+      sprite[3],
+      this.position[0],
+      this.position[1],
+      sprite[2],
+      sprite[3]
     );
-    ctx.fill();
+
+    // ctx.drawImage(
+    //   this.fireball,
+    //   this.position[0],
+    //   this.position[1]
+    // );
+
+    // ctx.beginPath();
+    // ctx.arc(
+    //   this.position[0], this.position[1], this.radius, 0, 2 * Math.PI, true
+    // );
+    // ctx.fill();
   }
 
   // Draws and updates fireball movement

@@ -3,6 +3,7 @@ const Fireball = require('./fireball');
 const Background = require('./background');
 const Enemy = require('./enemy');
 const GameOverMenu = require('./game_over');
+const Score = require('./score');
 const Util = require('./util');
 
 const MAX_ENEMIES = 10;
@@ -23,6 +24,8 @@ class Game {
     this.dino = [];
     this.fireballs = [];
     this.enemies = [];
+    this.score = new Score(1);
+    this.gameOverMenu = new GameOverMenu();
 
     // Setting game assets
     this.addDino(this.dinoColor);
@@ -186,8 +189,7 @@ class Game {
         const obj2 = enemies[j];
 
         if (obj1.collidedWith(obj2)) {  
-          const collision = obj1.collidedWith(obj2);
-          if (collision) return;
+          return;
         } 
       }
     }
@@ -205,8 +207,6 @@ class Game {
       if (obj1.collidedWith(obj2)) {
         const collision = obj1.collidedWith(obj2);
         if (collision) {
-          const menu = document.getElementById('game-over-menu');
-          menu.classList.add('active'); 
           this.gameOver = true;
           return;
         }
@@ -215,12 +215,15 @@ class Game {
   }
 
   // Drawing the game
-  draw(ctx) {  
-    ctx.clearRect(0, 0, this.gameCanvas.width, this.gameCanvas.height);
+  draw() {  
+    this.gameCtx.clearRect(0, 0, this.gameCanvas.width, this.gameCanvas.height);
 
     // Drawing background
     this.background.draw();
     this.foreground.draw();
+
+    // Drawing the score
+    this.score.draw(this.gameCtx);
 
     // Adding enemies to game
     this.addEnemies();
@@ -228,37 +231,35 @@ class Game {
 
   // Replays a new game
   replay() {
-    const menu = document.getElementById('game-over-menu');
-    menu.classList.remove('active'); 
-
     const dino = this.dino[0];
 
+    this.gameOverMenu.remove();
     document.getElementById('game-canvas').focus();
 
     // Resetting game variables
+    this.score.score = 0;
     this.gameOver = false;
     this.timeInterval = 0;
     dino.frames = 0;
-    dino.gameOver = false;
+    dino.isHit = false;
     this.fireballs = [];
     this.enemies = [];
 
     this.start();
   }
 
-  // temp start function for game
+  // Starts a game
   start() {        
     this.gameCanvas.focus();
 
     if (!this.gameOver) {
-      this.draw(this.gameCtx);
+      this.draw();
       this.updateObjects(this.gameCtx);
       this.checkCollisions();
       this.checkPlayerCollisions();
       requestAnimationFrame(this.start.bind(this));
     } else {
-      // const menu = document.getElementById('game-over-menu');
-      // menu.classList.add('active');
+      this.gameOverMenu.draw();
     }
   }
 }
