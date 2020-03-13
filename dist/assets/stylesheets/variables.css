@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'miniPixel';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/mini_pixel-7-webfont.woff') format('woff');
+}
+
+:root {
+  /* Primary colors */
+  --red: #F2055C;
+}

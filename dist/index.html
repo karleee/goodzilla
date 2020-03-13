@@ -10,13 +10,15 @@
 </head>
 <body>
   <div id="game-start-menu" class="game-start-container">
-    <div class="title-wrapper">
-      <h1>Goodzilla</h1>
-    </div>
-   
-    <div class="choices-container">
-      <button class="choice-button-wrapper" value="play">Play</button>
-      <button class="choice-button-wrapper" value="instructions">Instructions</button>
+    <div class="splash-image-wrapper"><img src="./assets/images/splash.gif" alt="Splash screen"></div>
+
+    <div class="choices-wrapper">
+      <h1>The Goodzilla</h1>
+
+      <div class="choices-container">
+        <button class="choice-button-wrapper" value="play">Play</button>
+        <button class="choice-button-wrapper" value="instructions">Instructions</button>
+      </div>
     </div>
   </div>
 
@@ -35,17 +37,35 @@
   </div>
 
   <div id="game-character-menu" class="game-character-container">
-    <h1>Choose your dino:</h1>
-    
-    <div class="buttons-container">
-      <button class="color-button-wrapper" value="red"><img src="./assets/images/character_menu/red_dino.gif" alt="Red dino"></button>
-      <button class="color-button-wrapper" value="blue"><img src="./assets/images/character_menu/blue_dino.gif" alt="Blue dino"></button>
-      <button class="color-button-wrapper" value="yellow"><img src="./assets/images/character_menu/yellow_dino.gif" alt="Yellow dino"></button>
-      <button class="color-button-wrapper" value="green"><img src="./assets/images/character_menu/green_dino.gif" alt="Green dino"></button>
-    </div>
+    <div class="character-image-wrapper"><img src="./assets/images/character_menu.gif" alt="Character display screen"></div>
 
     <div class="links-wrapper">
-      <button id="character-main-menu-button-wrapper" value="main-menu">Back to Main Menu</button>
+      <button id="character-main-menu-button-wrapper" value="main-menu">Main Menu</button>
+    </div>
+
+    <div class="character-instructions-wrapper">
+      <h1>Pick a goodzilla.</h1>
+      <p>Missed your favorite? Don't worry, they'll come back around! Hover and click to select.</p>
+    </div>
+    
+    <div class="marquee-wrapper">
+      <div class="marquee-content-wrapper">
+        <button class="color-button-wrapper" value="red">
+          <img src="./assets/images/character_menu/red_dino.gif" alt="Red dino" id="red-dino-image">
+        </button>
+
+        <button class="color-button-wrapper" value="blue">
+          <img src="./assets/images/character_menu/blue_dino.gif" alt="Blue dino">
+        </button>
+
+        <button class="color-button-wrapper" value="yellow">
+          <img src="./assets/images/character_menu/yellow_dino.gif" alt="Yellow dino">
+        </button>
+
+        <button class="color-button-wrapper" value="green">
+          <img src="./assets/images/character_menu/green_dino.gif" alt="Green dino">
+        </button> 
+      </div>
     </div>
   </div>
   
