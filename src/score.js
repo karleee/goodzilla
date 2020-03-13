@@ -18,8 +18,8 @@ class Score {
 
   // Drawing the Score
   draw(ctx) {
-    const text = `Score: ${this.score}`;
-    ctx.font = '10px Arial';
+    const text = `SCORE: ${this.score}`;
+    ctx.font = '10px miniPixel';
     ctx.fillStyle = 'white';
     ctx.fillText(text, 20, 20);
     this.addScore();

@@ -219,9 +219,10 @@ class Dino {
     if (collided) {
       this.isHit = true;
       return true;
+    } else {
+      this.isHit = false;
+      return false;
     }
-
-    return false;
   };
 
   // Hitbox for dino

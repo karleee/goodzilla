@@ -25,6 +25,7 @@ class Game {
     this.fireballs = [];
     this.enemies = [];
     this.score = new Score(1);
+    this.playerLives = 3;
     this.gameOverMenu = new GameOverMenu();
 
     // Setting game assets
@@ -188,9 +189,7 @@ class Game {
         const obj1 = fireballs[i];
         const obj2 = enemies[j];
 
-        if (obj1.collidedWith(obj2)) {  
-          return;
-        } 
+        if (obj1.collidedWith(obj2)) return;
       }
     }
   };
@@ -205,11 +204,8 @@ class Game {
       const obj2 = enemies[i];
 
       if (obj1.collidedWith(obj2)) {
-        const collision = obj1.collidedWith(obj2);
-        if (collision) {
-          this.gameOver = true;
-          return;
-        }
+        this.playerLives -= 1;
+        return;
       }
     }
   }
@@ -229,6 +225,11 @@ class Game {
     this.addEnemies();
   }
 
+  // Checking if the game is over
+  isGameOver() {
+    return this.playerLives === 0;
+  }
+
   // Replays a new game
   replay() {
     const dino = this.dino[0];
@@ -244,6 +245,7 @@ class Game {
     dino.isHit = false;
     this.fireballs = [];
     this.enemies = [];
+    this.playerLives = 3;
 
     this.start();
   }
@@ -252,13 +254,15 @@ class Game {
   start() {        
     this.gameCanvas.focus();
 
-    if (!this.gameOver) {
+    // if (!this.gameOver) {
+    if (!this.isGameOver()) {
       this.draw();
       this.updateObjects(this.gameCtx);
       this.checkCollisions();
       this.checkPlayerCollisions();
       requestAnimationFrame(this.start.bind(this));
     } else {
+      // console.log(this.isGameOver());
       this.gameOverMenu.draw();
     }
   }

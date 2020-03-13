@@ -236,7 +236,7 @@ canvas {
   font-family: 'miniPixel';
   text-transform: uppercase;
   color: var(--red);
-  margin: 130px 0 0 50px;
+  margin: 10% 0 0 5%;
   width: 35%;
 }
 
@@ -269,7 +269,7 @@ canvas {
   width: 100%;
   padding-bottom: 10px;
   overflow: hidden;
-  margin-top: 16%;
+  margin-top: 14.5%;
 }
 
 .marquee-content-wrapper {
@@ -293,7 +293,12 @@ canvas {
 
 .color-button-wrapper {
   width: 10%;
+  height: 100%;
   background: transparent;
+}
+
+.color-button-wrapper img {
+  width: 100%;
 }
 
 .marquee-wrapper:hover .color-button-wrapper:hover {
@@ -309,10 +314,6 @@ canvas {
 
 .marquee-wrapper button:nth-of-type(3n) {
   margin-right: 20px;
-}
-
-.color-button-wrapper img {
-  width: 100%;
 }
 
 .game-character-container.active {
@@ -336,23 +337,24 @@ canvas {
 }
 
 .instructions-image-wrapper {
-  width: 100%;
-  height: 100%;
-}
-
-.instructions-image-wrapper img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background: lightblue;
   z-index: -1;
+}
+
+.instructions-image-wrapper img {
+  width: 100%;
+  height: 100%;
 }
 
 .instructions-links-wrapper button{
   font-family: 'miniPixel';
   font-size: 30px;
-  color: white;
+  color: var(--red);
   text-transform: uppercase;
   background: transparent;
   border-bottom: 4px solid transparent;
@@ -361,13 +363,13 @@ canvas {
 }
 
 .instructions-links-wrapper button:hover {
-  border-bottom: 4px solid white;
+  border-bottom: 4px solid var(--red);
   cursor: pointer;
 }
 
 .instructions-wrapper {
-  /* margin-top: 5%; */
   width: 30%;
+  margin: 10% 0 0 5%;
 }
 
 .instructions-wrapper img {
@@ -375,8 +377,16 @@ canvas {
 }
 
 .keyboard-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  margin: 5% 0 0 5%;
+}
+
+.keyboard-wrapper {
   width: 70%;
-  margin-top: 10%;
 }
 
 .keyboard-wrapper img {
