@@ -47,11 +47,7 @@ class GameCharacterMenu {
 
   // Goes back to main menu
   backToMainMenu() {
-    const menu = document.getElementById('game-character-menu');
-    menu.classList.remove('active');
-
-    const startMenu = document.getElementById('game-start-menu');
-    startMenu.classList.add('active');
+    location.reload();
   }
 
   // Drawing the game character menu

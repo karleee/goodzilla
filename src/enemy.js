@@ -1,14 +1,60 @@
 const Util = require('./util');
 
-const WIDTH = 5;
-const HEIGHT = 5;
+const WIDTH = 16;
+const HEIGHT = 24;
+
+// Creating array for enemy sprite
+let enemySprites = [];
+
+for (let i = 0; i < 16; i++) {
+  enemySprites.push([WIDTH * i, 0, WIDTH, HEIGHT]);
+}
+
 
 class Enemy {
   constructor(options) {
-    this.position = options.position || options.game.randomPosition();
+    this.prevPos = options.prevPos;
+    this.position = options.game.randomPosition(this.prevPos);
     this.speed = options.speed;
     this.game = options.game;
+    this.ctx = options.ctx;
+    this.enemies = options.enemies;
     this.isWrappable = true;
+
+    // Setting frames for sprite animation
+    this.frames = 0;
+
+    // Setting enemy image
+    this.enemy = new Image();
+
+    // Preventing browser(s) from smoothing out/blurring lines
+    this.ctx.mozImageSmoothingEnabled = false;
+    this.ctx.webkitImageSmoothingEnabled = false;
+    this.ctx.msImageSmoothingEnabled = false;
+    this.ctx.imageSmoothingEnabled = false;
+
+    this.enemy.src = '../dist/assets/spritesheets/enemy.png';
+    this.enemy.alt = 'Akuma enemy';
+  }
+
+  // Gets enemy sprite
+  getSprite(sprites) {
+    if (this.frames < 10) {
+      this.frames += 1;
+      return sprites[0];
+    } else if (this.frames < 20) {
+      this.frames += 1;
+      return sprites[1];
+    } else if (this.frames < 30) {
+      this.frames += 1;
+      return sprites[2];
+    } else if (this.frames < 40) {
+      this.frames += 1;
+      return sprites[3];
+    } else {
+      this.frames = 0;
+      return sprites[3];
+    }
   }
 
   // Moving an enemy
@@ -20,10 +66,10 @@ class Enemy {
   // Hitbox for a mini devil
   hitbox() {
     return {
-      minX: this.position[0],
-      minY: this.position[1],
-      width: WIDTH,
-      height: HEIGHT
+      minX: this.position[0] + 3,
+      minY: this.position[1] + 3,
+      width: WIDTH - 8,
+      height: HEIGHT - 12
     };
   }
 
@@ -53,11 +99,19 @@ class Enemy {
 
   // Drawing a mini devil
   draw(ctx) {
-    ctx.beginPath();
-    ctx.strokeStyle = this.color;
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
-    ctx.stroke();
+    const sprite = this.getSprite(enemySprites);
+
+    ctx.drawImage(
+      this.enemy,
+      sprite[0],
+      sprite[1],
+      sprite[2],
+      sprite[3],
+      this.position[0],
+      this.position[1],
+      sprite[2],
+      sprite[3]
+    );
   }
 
   // Draws and updates enemy movement

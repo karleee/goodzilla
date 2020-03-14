@@ -6,7 +6,7 @@ const GameOverMenu = require('./game_over');
 const Score = require('./score');
 const Util = require('./util');
 
-const MAX_ENEMIES = 5;
+const MAX_ENEMIES = 3;
 
 class Game {
   // Constructor for game
@@ -63,8 +63,13 @@ class Game {
   }
 
   // Adding enemies to the game
-  addEnemy() {
-    this.add(new Enemy({ speed: Util.randomNum(1, 2), game: this }));
+  addEnemy(prevPos) {
+    this.add(new Enemy({ 
+      prevPos,
+      speed: 1, 
+      game: this, 
+      ctx: this.gameCtx 
+    }));
   }
 
   // Adding objects to respective arrays
@@ -105,10 +110,10 @@ class Game {
   };
 
   // Gets a random position
-  randomPosition() {
+  randomPosition(prevPos) {
     return [
-      this.gameCanvas.width + Util.randomNum(50, 150),
-      this.gameCanvas.height - Util.randomNum(10, 20)
+      this.gameCanvas.width + (prevPos[0] + Util.randomNum(10, 50)) + Util.randomNum(50, 150),
+      this.gameCanvas.height - Util.randomNum(15, 25)
     ];
   };
 
@@ -209,7 +214,6 @@ class Game {
       const obj2 = enemies[i];
 
       if (obj1.collidedWith(obj2)) {
-        // this.playerLives -= 1;
         this.gameOver = true;
         return;
       }
@@ -228,7 +232,15 @@ class Game {
     this.score.draw(this.gameCtx);
 
     // Adding enemies to game
-    if (this.enemies.length < MAX_ENEMIES) this.addEnemy();
+    let prevPos;
+    if (this.enemies.length === 1) {
+      const prevEnemy = this.enemies[this.enemies.length - 1];
+      prevPos = [10, 10];
+    } else {
+      prevPos = [0, 0];
+    }
+
+    if (this.enemies.length < MAX_ENEMIES) this.addEnemy(prevPos);
   }
 
   // Replays a new game
