@@ -6,7 +6,7 @@ const GameOverMenu = require('./game_over');
 const Score = require('./score');
 const Util = require('./util');
 
-const MAX_ENEMIES = 10;
+const MAX_ENEMIES = 5;
 
 class Game {
   // Constructor for game
@@ -35,13 +35,13 @@ class Game {
     // Setting game state
     this.gameOver = false;
     this.paused = false;
-    this.timeInterval = 0;
 
     // Binding class methods
     this.draw = this.draw.bind(this);
     this.keyDownListener = this.keyDownListener.bind(this);
     this.keyUpListener = this.keyUpListener.bind(this);
     this.replay = this.replay.bind(this);
+    this.goToMainMenu = this.goToMainMenu.bind(this);
 
     // Setting keypresses
     this.setKeypresses();
@@ -63,14 +63,8 @@ class Game {
   }
 
   // Adding enemies to the game
-  // change time interval === for difficulty level
-  addEnemies() {
-    this.timeInterval += 1;
-
-    if (this.timeInterval === 20 && this.enemies.length < MAX_ENEMIES) {
-      this.add(new Enemy({ game: this }));
-      this.timeInterval = 0;
-    } 
+  addEnemy() {
+    this.add(new Enemy({ speed: Util.randomNum(1, 2), game: this }));
   }
 
   // Adding objects to respective arrays
@@ -123,7 +117,18 @@ class Game {
     this.gameCanvas.addEventListener('keydown', this.keyDownListener);
     this.gameCanvas.addEventListener('keyup', this.keyUpListener);
     const replay = document.getElementById('replay-button');
+    const mainMenu = document.getElementById('game-over-main-menu-button');
     replay.addEventListener('click', this.replay);
+    mainMenu.addEventListener('click', this.goToMainMenu);
+  }
+
+  // // Goes to main menu
+  goToMainMenu() {
+    // Force screen refresh to initiate new game
+    location.reload();
+    this.gameOverMenu.remove();
+    const mainMenu = document.getElementById('game-start-menu');
+    mainMenu.classList.add('active');
   }
 
   // Handler for key down
@@ -204,7 +209,8 @@ class Game {
       const obj2 = enemies[i];
 
       if (obj1.collidedWith(obj2)) {
-        this.playerLives -= 1;
+        // this.playerLives -= 1;
+        this.gameOver = true;
         return;
       }
     }
@@ -222,12 +228,7 @@ class Game {
     this.score.draw(this.gameCtx);
 
     // Adding enemies to game
-    this.addEnemies();
-  }
-
-  // Checking if the game is over
-  isGameOver() {
-    return this.playerLives === 0;
+    if (this.enemies.length < MAX_ENEMIES) this.addEnemy();
   }
 
   // Replays a new game
@@ -240,7 +241,6 @@ class Game {
     // Resetting game variables
     this.score.score = 0;
     this.gameOver = false;
-    this.timeInterval = 0;
     dino.frames = 0;
     dino.isHit = false;
     this.fireballs = [];
@@ -254,15 +254,13 @@ class Game {
   start() {        
     this.gameCanvas.focus();
 
-    // if (!this.gameOver) {
-    if (!this.isGameOver()) {
+    if (!this.gameOver) {
       this.draw();
       this.updateObjects(this.gameCtx);
       this.checkCollisions();
       this.checkPlayerCollisions();
       requestAnimationFrame(this.start.bind(this));
     } else {
-      // console.log(this.isGameOver());
       this.gameOverMenu.draw();
     }
   }

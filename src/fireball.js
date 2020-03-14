@@ -1,6 +1,6 @@
 // Width and height of a sprite
-const WIDTH = 33;
-const HEIGHT = 33;
+const WIDTH = 30;
+const HEIGHT = 30;
 
 // Creating array for fireball sprite
 let fireballSprites = [];
@@ -65,9 +65,9 @@ class Fireball {
   // Hitbox for a fireball
   hitbox() {
     return {
-      minX: this.position[0],
+      minX: this.position[0] + 5,
       minY: this.position[1],
-      width: WIDTH,
+      width: WIDTH - 10,
       height: HEIGHT
     };
   }
@@ -94,14 +94,6 @@ class Fireball {
 
   // Drawing a fireball
   draw(ctx) {
-    //hitbox
-    // ctx.beginPath();
-    // ctx.strokeStyle = 'red';
-    // ctx.fillStyle = 'red';
-    // ctx.fillRect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
-    // ctx.stroke();
-
-    // sprite
     const sprite = this.getSprite(fireballSprites);
 
     ctx.drawImage(
@@ -115,18 +107,6 @@ class Fireball {
       sprite[2],
       sprite[3]
     );
-
-    // ctx.drawImage(
-    //   this.fireball,
-    //   this.position[0],
-    //   this.position[1]
-    // );
-
-    // ctx.beginPath();
-    // ctx.arc(
-    //   this.position[0], this.position[1], this.radius, 0, 2 * Math.PI, true
-    // );
-    // ctx.fill();
   }
 
   // Draws and updates fireball movement

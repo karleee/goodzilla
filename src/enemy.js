@@ -1,5 +1,4 @@
 const Util = require('./util');
-const Fireball = require('./fireball');
 
 const WIDTH = 5;
 const HEIGHT = 5;
@@ -7,10 +6,8 @@ const HEIGHT = 5;
 class Enemy {
   constructor(options) {
     this.position = options.position || options.game.randomPosition();
-    this.speed = options.speed || Util.randomNum(1, 3);
+    this.speed = options.speed;
     this.game = options.game;
-    this.radius = 3;
-    this.color = 'green';
     this.isWrappable = true;
   }
 
