@@ -238,7 +238,7 @@ class Dino {
   // Draws the dino sprite
   draw(ctx) {    
     const sprite = this.getSprite();
-
+    
     ctx.drawImage(
       this.dino,
       sprite[0],

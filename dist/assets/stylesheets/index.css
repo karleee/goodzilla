@@ -297,25 +297,16 @@ canvas {
   background: transparent;
 }
 
-.red-dino-wrapper,
-.blue-dino-wrapper,
-.yellow-dino-wrapper,
-.green-dino-wrapper {
+.dino-wrapper {
   width: 200px;
   height: 200px;
 }
 
-.red-dino-wrapper img,
-.blue-dino-wrapper img,
-.yellow-dino-wrapper img,
-.green-dino-wrapper img {
+.dino-wrapper img {
   width: 100%;
 }
 
-.red-dino-wrapper:hover,
-.blue-dino-wrapper:hover,
-.yellow-dino-wrapper:hover,
-.green-dino-wrapper:hover {
+.dino-wrapper:hover {
   background: rgba(242, 5, 92, 0.5);
   border-radius: 50%;
   transition: all 0.25s;

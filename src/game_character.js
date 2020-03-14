@@ -15,7 +15,7 @@ class GameCharacterMenu {
 
   // Handles user clicks on character buttons
   clickHandler() {    
-    const colors = document.getElementsByClassName('color-button-wrapper');
+    const colors = document.getElementsByClassName('dino-wrapper');
     const mainMenuButton = document.getElementById('character-main-menu-button-wrapper');
 
     mainMenuButton.addEventListener('click', this.backToMainMenu);
@@ -30,7 +30,7 @@ class GameCharacterMenu {
     const menu = document.getElementById('game-character-menu');
     menu.classList.remove('active');
 
-    const dinoColor = e.target.parentNode.value;
+    const dinoColor = e.target.parentNode.parentNode.value;
 
     const game = new Game(
       this.gameCanvasCtx,
