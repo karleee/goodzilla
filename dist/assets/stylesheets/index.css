@@ -133,14 +133,47 @@ canvas {
   height: 100%;
 }
 
-.replay-button-wrapper.blinking {
+.game-over-buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.game-over-buttons-wrapper > button {
   font-family: 'miniPixel';
   font-size: 55px;
   text-transform: uppercase;
   letter-spacing: 3px;
   color: white;
   background: transparent;
-  animation: blinkingText 1s infinite;
+  animation: blinkingText 2s infinite;
+}
+
+.game-over-buttons-wrapper:hover > button {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+/* .replay-button-wrapper.blinking,
+.game-over-main-menu-button-wrapper.blinking {
+  font-family: 'miniPixel';
+  font-size: 55px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: white;
+  background: transparent;
+  animation: blinkingText 2s infinite;
+} */
+
+/* .replay-button-wrapper.blinking:hover ~ .game-over-main-menu-button-wrapper.blinking,
+.game-over-main-menu-button-wrapper.blinking ~ .replay-button-wrapper.blinking {
+  animation-play-state: paused;
+  cursor: pointer;
+} */
+
+.game-over-main-menu-button-wrapper.blinking {
+  margin-top: 2.5%;
 }
 
 @keyframes blinkingText{
