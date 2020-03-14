@@ -133,22 +133,40 @@ canvas {
   height: 100%;
 }
 
+.replay-button-wrapper.blinking {
+  font-family: 'miniPixel';
+  font-size: 55px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: white;
+  background: transparent;
+  animation: blinkingText 1s infinite;
+}
+
+@keyframes blinkingText{
+  0% { color: white; }
+  49%{ color: white; }
+  60%{ color: transparent; }
+  99%{ color:transparent;  }
+  100%{ color: white; }
+}
+
 /* .game-over-container h1 {
   font-family: sans-serif;
   font-size: 45px;
   color: white;
 } */
 
-.game-over-container button {
+/* .game-over-container button {
   width: 100px;
   padding: 15px;
   color: black;
-}
+} */
 
-.game-over-container button:hover {
+/* .game-over-container button:hover {
   background: lightblue;
   cursor: pointer;
-}
+} */
 
 .game-over-container.active {
   opacity: 1;
