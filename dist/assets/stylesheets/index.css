@@ -269,7 +269,7 @@ canvas {
   width: 100%;
   padding-bottom: 10px;
   overflow: hidden;
-  margin-top: 12%;
+  margin-top: 11.5%;
 }
 
 .marquee-content-wrapper {
@@ -292,21 +292,32 @@ canvas {
 }
 
 .color-button-wrapper {
+  width: 180px;
+  height: 180px;
   background: transparent;
 }
 
-.red-dino-wrapper {
+.red-dino-wrapper,
+.blue-dino-wrapper,
+.yellow-dino-wrapper,
+.green-dino-wrapper {
   width: 200px;
   height: 200px;
 }
 
-.red-dino-wrapper img {
+.red-dino-wrapper img,
+.blue-dino-wrapper img,
+.yellow-dino-wrapper img,
+.green-dino-wrapper img {
   width: 100%;
 }
 
-.marquee-wrapper:hover .color-button-wrapper:hover {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
+.red-dino-wrapper:hover,
+.blue-dino-wrapper:hover,
+.yellow-dino-wrapper:hover,
+.green-dino-wrapper:hover {
+  background: rgba(242, 5, 92, 0.5);
+  border-radius: 50%;
   transition: all 0.25s;
   cursor: pointer;
 }
