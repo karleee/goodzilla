@@ -8,7 +8,7 @@ class Score {
 
   // Adds the specified amnt to the score
   addScore() {
-    if (this.timeInterval === 10) {
+    if (this.timeInterval === 20) {
       this.score += this.amnt;
       this.timeInterval = 0;
     } else {

@@ -242,7 +242,7 @@ canvas {
 
 .character-links-wrapper button {
   font-family: 'miniPixel';
-  font-size: 30px;
+  font-size: 35px;
   color: var(--red);
   text-transform: uppercase;
   background: transparent;
@@ -269,7 +269,7 @@ canvas {
   width: 100%;
   padding-bottom: 10px;
   overflow: hidden;
-  margin-top: 14.5%;
+  margin-top: 12%;
 }
 
 .marquee-content-wrapper {
@@ -292,12 +292,15 @@ canvas {
 }
 
 .color-button-wrapper {
-  width: 10%;
-  height: 100%;
   background: transparent;
 }
 
-.color-button-wrapper img {
+.red-dino-wrapper {
+  width: 200px;
+  height: 200px;
+}
+
+.red-dino-wrapper img {
   width: 100%;
 }
 
@@ -353,7 +356,7 @@ canvas {
 
 .instructions-links-wrapper button{
   font-family: 'miniPixel';
-  font-size: 30px;
+  font-size: 35px;
   color: var(--red);
   text-transform: uppercase;
   background: transparent;

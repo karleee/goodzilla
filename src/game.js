@@ -66,7 +66,7 @@ class Game {
   addEnemy(prevPos) {
     this.add(new Enemy({ 
       prevPos,
-      speed: 1, 
+      speed: 1.5, 
       game: this, 
       ctx: this.gameCtx 
     }));
@@ -112,7 +112,7 @@ class Game {
   // Gets a random position
   randomPosition(prevPos) {
     return [
-      this.gameCanvas.width + (prevPos[0] + Util.randomNum(10, 50)) + Util.randomNum(50, 150),
+      this.gameCanvas.width + (prevPos[0] + Util.randomNum(30, 50)) + Util.randomNum(50, 150),
       this.gameCanvas.height - Util.randomNum(15, 25)
     ];
   };
