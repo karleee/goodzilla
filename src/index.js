@@ -7,20 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Getting background canvas
   const backgroundCanvas = document.getElementById('background-canvas');
-  const backgroundCanvasCtx = backgroundCanvas.getContext('2d', { alpha: false });
-
-  // Getting foreground canvas
-  const foregroundCanvas = document.getElementById('foreground-canvas');
-  const foregroundCanvasCtx = foregroundCanvas.getContext('2d');
+  const backgroundCanvasCtx = backgroundCanvas.getContext('2d');
 
   // Setting options hash
   const options = ({
     gameCanvasCtx,
     gameCanvas,
     backgroundCanvasCtx,
-    backgroundCanvas,
-    foregroundCanvasCtx,
-    foregroundCanvas
+    backgroundCanvas
   });
 
   const startMenu = new GameStartMenu(options);

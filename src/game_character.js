@@ -37,8 +37,8 @@ class GameCharacterMenu {
       this.gameCanvas,
       this.backgroundCanvasCtx,
       this.backgroundCanvas,
-      this.foregroundCanvasCtx,
-      this.foregroundCanvas,
+      // this.foregroundCanvasCtx,
+      // this.foregroundCanvas,
       dinoColor
     );
     

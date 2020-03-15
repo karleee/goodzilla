@@ -2,8 +2,8 @@ const Fireball = require('./fireball');
 
 // Constants
 const FIREBALL_VEL = 5;
-const WIDTH = 24;
-const HEIGHT = 24;
+const WIDTH = 126;
+const HEIGHT = 126;
 
 // Creating arrays for sprite walking, jumping, and crouching
 let walk = [];
@@ -52,12 +52,6 @@ class Dino {
     // Setting dino image
     this.dino = new Image();
 
-    // Preventing browser(s) from smoothing out/blurring lines
-    this.ctx.mozImageSmoothingEnabled = false;
-    this.ctx.webkitImageSmoothingEnabled = false;
-    this.ctx.msImageSmoothingEnabled = false;
-    this.ctx.imageSmoothingEnabled = false;
-
     this.dino.src = `../dist/assets/spritesheets/${this.dinoColor}_dino.png`;
     this.dino.alt = `${this.dinoColor} dino`;
 
@@ -65,6 +59,8 @@ class Dino {
     this.jumps = 0;
     this.isJumping = false;
     this.isHit = false;
+
+    // console.log(this.direction);
   }
 
   // Toggles direction boolean
@@ -144,15 +140,15 @@ class Dino {
 
   // Jumping action
   jump() {
-    const gravity = 0.6;
-    let jumpStrength = 9;
+    const gravity = 1.2;
+    let jumpStrength = 20;
 
     if (this.isJumping) {
       if (this.jumps === 0 || !this.onGround()) {
         this.position[1] -= jumpStrength - gravity * this.jumps;
         this.jumps += 1;
       } else {
-        this.position[1] = this.canvas.height - 25;
+        this.position[1] = this.canvas.height - 200;
         this.jumps = 0;
         this.isJumping = false;
       }
@@ -187,7 +183,7 @@ class Dino {
 
   // Checks if dino is on the ground
   onGround() {
-    return this.position[0] === 30 && this.position[1] >= this.canvas.height - 25;
+    return this.position[1] >= this.canvas.height - 200;
   }
 
   // Adds a fireball to the array to be shot by the player

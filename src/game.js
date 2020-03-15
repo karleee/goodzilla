@@ -10,15 +10,17 @@ const MAX_ENEMIES = 3;
 
 class Game {
   // Constructor for game
-  constructor(gameCtx, gameCanvas, backgroundCtx, backgroundCanvas, foregroundCtx, foregroundCanvas, dinoColor) {
+  constructor(gameCtx, gameCanvas, backgroundCtx, backgroundCanvas, dinoColor) {
     // Setting context and canvas
     this.gameCtx = gameCtx;
     this.gameCanvas = gameCanvas;
     this.backgroundCtx = backgroundCtx;
     this.backgroundCanvas = backgroundCanvas;
-    this.foregroundCtx = foregroundCtx;
-    this.foregroundCanvas = foregroundCanvas;
     this.dinoColor = dinoColor;
+
+    // Setting game canvas width and height
+    this.gameCtx.canvas.width = window.innerWidth;
+    this.gameCtx.canvas.height = window.innerHeight;
 
     // Setting up game objects
     this.dino = [];
@@ -50,7 +52,7 @@ class Game {
   // Adding dino player to the game
   addDino(dinoColor) {
     const dino = new Dino({
-      position: [30, this.gameCanvas.height - 25],
+      position: [80, this.gameCanvas.height - 200],
       canvas: this.gameCanvas,
       ctx: this.gameCtx,
       game: this,
@@ -166,17 +168,17 @@ class Game {
   }
 
   // Creating the background and foreground
-  addBackground(backgroundCtx, backgroundCanvas, foregroundCtx, foregroundCanvas) {
+  addBackground(backgroundCtx, backgroundCanvas) {
     // Background
     const backgroundImage = new Image();
-    backgroundImage.src = '../dist/assets/images/background.png';
+    backgroundImage.src = '../dist/assets/images/game/background.png';
     backgroundImage.alt = 'Background';
-    this.background = new Background(backgroundCtx, backgroundCanvas, backgroundImage, 1);
+    this.background = new Background(backgroundCtx, backgroundCanvas, backgroundImage, 10);
 
     // Foreground
-    const foregroundImage = new Image();
-    foregroundImage.src = '../dist/assets/images/foreground.png';
-    this.foreground = new Background(foregroundCtx, foregroundCanvas, foregroundImage, 10);
+    // const foregroundImage = new Image();
+    // foregroundImage.src = '../dist/assets/images/foreground.png';
+    // this.foreground = new Background(foregroundCtx, foregroundCanvas, foregroundImage, 10);
   }
 
   // Storing all moving game objects in an array
@@ -222,11 +224,14 @@ class Game {
 
   // Drawing the game
   draw() {  
+    // this.gameCtx.canvas.width = window.innerWidth;
+    // this.gameCtx.canvas.height = window.innerHeight;
+
     this.gameCtx.clearRect(0, 0, this.gameCanvas.width, this.gameCanvas.height);
 
     // Drawing background
     this.background.draw();
-    this.foreground.draw();
+    // this.foreground.draw();
 
     // Drawing the score
     this.score.draw(this.gameCtx);
