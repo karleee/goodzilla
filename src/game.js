@@ -127,7 +127,7 @@ class Game {
 
   // Goes to main menu
   goToMainMenu(e) {
-    if (e.key === 'q' || e.key === 'Q') {
+    if ((e.key === 'q' || e.key === 'Q') && this.gameOver) {
       // Force screen refresh to initiate new game
       location.reload(true);
       this.gameOverMenu.remove();
@@ -245,7 +245,7 @@ class Game {
 
   // Replays a new game
   replay(e) {
-    if (e.key === 'r' || e.key === 'R') {
+    if ((e.key === 'r' || e.key === 'R') && this.gameOver) {
       const dino = this.dino[0];
 
       this.gameOverMenu.remove();
