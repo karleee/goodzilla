@@ -1,13 +1,13 @@
 const Util = require('./util');
 
-const WIDTH = 16;
-const HEIGHT = 24;
+const WIDTH = 65;
+const HEIGHT = 84;
 
 // Creating array for enemy sprite
-let enemySprites = [];
+let robotSprites = [];
 
-for (let i = 0; i < 16; i++) {
-  enemySprites.push([WIDTH * i, 0, WIDTH, HEIGHT]);
+for (let i = 0; i < 8; i++) {
+  robotSprites.push([WIDTH * i, 0, WIDTH, HEIGHT]);
 }
 
 
@@ -33,7 +33,7 @@ class Enemy {
     this.ctx.msImageSmoothingEnabled = false;
     this.ctx.imageSmoothingEnabled = false;
 
-    this.enemy.src = '../dist/assets/spritesheets/enemy.png';
+    this.enemy.src = '../dist/assets/spritesheets/small_robot.png';
     this.enemy.alt = 'Akuma enemy';
   }
 
@@ -42,18 +42,30 @@ class Enemy {
     if (this.frames < 10) {
       this.frames += 1;
       return sprites[0];
-    } else if (this.frames < 20) {
+    } else if (this.frames < 15) {
       this.frames += 1;
       return sprites[1];
-    } else if (this.frames < 30) {
+    } else if (this.frames < 20) {
       this.frames += 1;
       return sprites[2];
-    } else if (this.frames < 40) {
+    } else if (this.frames < 25) {
       this.frames += 1;
       return sprites[3];
+    } else if (this.frames < 30) {
+      this.frames += 1;
+      return sprites[4];
+    } else if (this.frames < 35) {
+      this.frames += 1;
+      return sprites[5];
+    } else if (this.frames < 40) {
+      this.frames += 1;
+      return sprites[6];
+    } else if (this.frames < 45) {
+      this.frames += 1;
+      return sprites[7];
     } else {
       this.frames = 0;
-      return sprites[3];
+      return sprites[7];
     }
   }
 
@@ -66,10 +78,10 @@ class Enemy {
   // Hitbox for a mini devil
   hitbox() {
     return {
-      minX: this.position[0] + 3,
-      minY: this.position[1] + 3,
-      width: WIDTH - 8,
-      height: HEIGHT - 12
+      minX: this.position[0] + 10,
+      minY: this.position[1] + 17,
+      width: WIDTH - 22,
+      height: HEIGHT - 15
     };
   }
 
@@ -99,7 +111,7 @@ class Enemy {
 
   // Drawing a mini devil
   draw(ctx) {
-    const sprite = this.getSprite(enemySprites);
+    const sprite = this.getSprite(robotSprites);
 
     ctx.drawImage(
       this.enemy,

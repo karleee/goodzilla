@@ -225,7 +225,7 @@ class Dino {
       minX: this.position[0] + 22,
       minY: this.position[1] + 22,
       width: WIDTH - 55,
-      height: HEIGHT - 35
+      height: HEIGHT - 40
     };
   }
 
@@ -233,10 +233,10 @@ class Dino {
   draw(ctx) {   
     
     //hitbox
-    ctx.beginPath();
-    ctx.fillStyle = "green";
-    ctx.rect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
-    ctx.stroke();
+    // ctx.beginPath();
+    // ctx.fillStyle = "green";
+    // ctx.rect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
+    // ctx.stroke();
 
     const sprite = this.getSprite();
     

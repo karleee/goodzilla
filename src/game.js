@@ -1,7 +1,7 @@
 const Dino = require('./dino');
 const Fireball = require('./fireball');
 const Background = require('./background');
-const Enemy = require('./enemy');
+const Enemy = require('./robot');
 const GameOverMenu = require('./game_over');
 const Score = require('./score');
 const Util = require('./util');
@@ -68,7 +68,7 @@ class Game {
   addEnemy(prevPos) {
     this.add(new Enemy({ 
       prevPos,
-      speed: 1.5, 
+      speed: 5, 
       game: this, 
       ctx: this.gameCtx 
     }));
@@ -114,8 +114,8 @@ class Game {
   // Gets a random position
   randomPosition(prevPos) {
     return [
-      this.gameCanvas.width + (prevPos[0] + Util.randomNum(30, 50)) + Util.randomNum(50, 150),
-      this.gameCanvas.height - Util.randomNum(15, 25)
+      this.gameCanvas.width + (prevPos[0] + Util.randomNum(100, 150)) + Util.randomNum(50, 150),
+      this.gameCanvas.height - Util.randomNum(200, 210)
     ];
   };
 
@@ -173,12 +173,7 @@ class Game {
     const backgroundImage = new Image();
     backgroundImage.src = '../dist/assets/images/game/background.png';
     backgroundImage.alt = 'Background';
-    this.background = new Background(backgroundCtx, backgroundCanvas, backgroundImage, 10);
-
-    // Foreground
-    // const foregroundImage = new Image();
-    // foregroundImage.src = '../dist/assets/images/foreground.png';
-    // this.foreground = new Background(foregroundCtx, foregroundCanvas, foregroundImage, 10);
+    this.background = new Background(backgroundCtx, backgroundCanvas, backgroundImage, 15);
   }
 
   // Storing all moving game objects in an array
@@ -224,14 +219,10 @@ class Game {
 
   // Drawing the game
   draw() {  
-    // this.gameCtx.canvas.width = window.innerWidth;
-    // this.gameCtx.canvas.height = window.innerHeight;
-
     this.gameCtx.clearRect(0, 0, this.gameCanvas.width, this.gameCanvas.height);
 
     // Drawing background
     this.background.draw();
-    // this.foreground.draw();
 
     // Drawing the score
     this.score.draw(this.gameCtx);
