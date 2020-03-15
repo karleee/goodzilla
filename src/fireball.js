@@ -22,13 +22,6 @@ class Fireball {
 
     // Setting fireball image
     this.fireball = new Image();
-
-    // Preventing browser(s) from smoothing out/blurring lines
-    this.ctx.mozImageSmoothingEnabled = false;
-    this.ctx.webkitImageSmoothingEnabled = false;
-    this.ctx.msImageSmoothingEnabled = false;
-    this.ctx.imageSmoothingEnabled = false;
-
     this.fireball.src = '../dist/assets/spritesheets/fireball.png';
     this.fireball.alt = 'Fireball';
   }

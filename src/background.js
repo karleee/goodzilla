@@ -15,12 +15,6 @@ class Background {
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // Preventing browser(s) from smoothing out/blurring lines
-    // this.ctx.mozImageSmoothingEnabled = false;
-    // this.ctx.webkitImageSmoothingEnabled = false;
-    // this.ctx.msImageSmoothingEnabled = false;
-    // this.ctx.imageSmoothingEnabled = false;
-
     this.ctx.drawImage(this.image, this.posX, 0, this.image.width, this.image.height, 0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.image, this.posX - this.image.width, 0, this.image.width, this.image.height, 0, 0, this.canvas.width, this.canvas.height);
     
