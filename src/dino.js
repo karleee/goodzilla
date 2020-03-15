@@ -59,8 +59,6 @@ class Dino {
     this.jumps = 0;
     this.isJumping = false;
     this.isHit = false;
-
-    // console.log(this.direction);
   }
 
   // Toggles direction boolean
@@ -224,15 +222,22 @@ class Dino {
   // Hitbox for dino
   hitbox() {
     return {
-      minX: this.position[0] + 6,
-      minY: this.position[1] + 5,
-      width: WIDTH - 9,
-      height: HEIGHT - 8
+      minX: this.position[0] + 22,
+      minY: this.position[1] + 22,
+      width: WIDTH - 55,
+      height: HEIGHT - 35
     };
   }
 
   // Draws the dino sprite
-  draw(ctx) {    
+  draw(ctx) {   
+    
+    //hitbox
+    ctx.beginPath();
+    ctx.fillStyle = "green";
+    ctx.rect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
+    ctx.stroke();
+
     const sprite = this.getSprite();
     
     ctx.drawImage(
