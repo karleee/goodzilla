@@ -115,6 +115,7 @@ canvas {
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   z-index: -1;
 }
@@ -136,8 +137,11 @@ canvas {
 .game-over-buttons-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-top: 10%;
+  justify-content: space-between;
+  align-items: center;
+  width: 35%;
+  height: 20%;
+  margin-top: 25%;
 }
 
 .game-over-buttons-wrapper > button {
@@ -146,7 +150,9 @@ canvas {
   text-transform: uppercase;
   letter-spacing: 3px;
   color: white;
+  padding: 10px 15px;
   background: transparent;
+  border: 3px solid transparent;
   animation: blinkingText 2s infinite;
 }
 
@@ -155,8 +161,10 @@ canvas {
   cursor: pointer;
 }
 
-.game-over-main-menu-button-wrapper.blinking {
-  margin-top: 2.5%;
+.game-over-buttons-wrapper .replay-button-wrapper:hover,
+.game-over-buttons-wrapper .game-over-main-menu-button-wrapper:hover {
+  border: 3px solid white;
+  border-radius: 5px;
 }
 
 @keyframes blinkingText{
@@ -166,23 +174,6 @@ canvas {
   99%{ color:transparent;  }
   100%{ color: white; }
 }
-
-/* .game-over-container h1 {
-  font-family: sans-serif;
-  font-size: 45px;
-  color: white;
-} */
-
-/* .game-over-container button {
-  width: 100px;
-  padding: 15px;
-  color: black;
-} */
-
-/* .game-over-container button:hover {
-  background: lightblue;
-  cursor: pointer;
-} */
 
 .game-over-container.active {
   opacity: 1;
