@@ -19,9 +19,20 @@ class Score {
   // Drawing the Score
   draw(ctx) {
     const text = `SCORE: ${this.score}`;
-    ctx.font = '10px miniPixel';
-    ctx.fillStyle = 'white';
-    ctx.fillText(text, 20, 20);
+    ctx.font = '55px miniPixel';
+    ctx.strokeStyle = 'white';
+
+    // setup these to match your needs
+    ctx.miterLimit = 2;
+    ctx.lineJoin = 'miter';
+
+    // draw an outline, then filled
+    ctx.lineWidth = 15;
+    ctx.strokeText(text, 40, 60);
+    // ctx.lineWidth = 1;
+    ctx.fillText(text, 40, 60);
+    ctx.fillStyle = '#F2055C';
+
     this.addScore();
   }
 }

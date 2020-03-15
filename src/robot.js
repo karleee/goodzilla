@@ -1,5 +1,3 @@
-const Util = require('./util');
-
 const WIDTH = 65;
 const HEIGHT = 84;
 
@@ -10,6 +8,8 @@ for (let i = 0; i < 8; i++) {
   robotSprites.push([WIDTH * i, 0, WIDTH, HEIGHT]);
 }
 
+// Accounting for sprite sheet order
+robotSprites.reverse();
 
 class Enemy {
   constructor(options) {
@@ -26,13 +26,6 @@ class Enemy {
 
     // Setting enemy image
     this.enemy = new Image();
-
-    // Preventing browser(s) from smoothing out/blurring lines
-    this.ctx.mozImageSmoothingEnabled = false;
-    this.ctx.webkitImageSmoothingEnabled = false;
-    this.ctx.msImageSmoothingEnabled = false;
-    this.ctx.imageSmoothingEnabled = false;
-
     this.enemy.src = '../dist/assets/spritesheets/small_robot.png';
     this.enemy.alt = 'Akuma enemy';
   }
@@ -102,6 +95,38 @@ class Enemy {
     }
 
     return false;
+  }
+
+  // Plays explosion
+  playExplosion(sprites) {
+    if (this.frames < 10) {
+      this.frames += 1;
+      return sprites[0];
+    } else if (this.frames < 15) {
+      this.frames += 1;
+      return sprites[1];
+    } else if (this.frames < 20) {
+      this.frames += 1;
+      return sprites[2];
+    } else if (this.frames < 25) {
+      this.frames += 1;
+      return sprites[3];
+    } else if (this.frames < 30) {
+      this.frames += 1;
+      return sprites[4];
+    } else if (this.frames < 35) {
+      this.frames += 1;
+      return sprites[5];
+    } else if (this.frames < 40) {
+      this.frames += 1;
+      return sprites[6];
+    } else if (this.frames < 45) {
+      this.frames += 1;
+      return sprites[7];
+    } else {
+      this.frames = 0;
+      return sprites[7];
+    }
   }
 
   // Removing an enemy

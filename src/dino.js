@@ -1,7 +1,7 @@
 const Fireball = require('./fireball');
 
 // Constants
-const FIREBALL_VEL = 5;
+const FIREBALL_VEL = 12;
 const WIDTH = 126;
 const HEIGHT = 126;
 
@@ -86,25 +86,25 @@ class Dino {
   }
 
   getHitSprite(sprites) {
-    if (this.frames < 10) {
+    if (this.frames < 5) {
       this.frames += 1;
       return sprites[0];
-    } else if (this.frames < 15) {
+    } else if (this.frames < 10) {
       this.frames += 1;
       return sprites[1];
-    } else if (this.frames < 20) {
+    } else if (this.frames < 15) {
       this.frames += 1;
       return sprites[2];
-    } else if (this.frames < 25) {
+    } else if (this.frames < 20) {
       this.frames += 1;
       return sprites[3];
-    } else if (this.frames < 30) {
+    } else if (this.frames < 25) {
       this.frames += 1;
       return sprites[4];
-    } else if (this.frames < 35) {
+    } else if (this.frames < 30) {
       this.frames += 1;
       return sprites[5];
-    } else if (this.frames < 40) {
+    } else if (this.frames < 35) {
       this.frames = 0;
       return sprites[5];
     }
@@ -112,22 +112,22 @@ class Dino {
 
   // Gets idle sprite
   getIdleSprite(sprites) {
-    if (this.frames < 10) {
+    if (this.frames < 5) {
       this.frames += 1;
       return sprites[0];
-    } else if (this.frames < 15) {
+    } else if (this.frames < 10) {
       this.frames += 1;
       return sprites[1];
-    } else if (this.frames < 20) {
+    } else if (this.frames < 15) {
       this.frames += 1;
       return sprites[2];
-    } else if (this.frames < 25) {
+    } else if (this.frames < 20) {
       this.frames += 1;
       return sprites[3];
-    } else if (this.frames < 30) {
+    } else if (this.frames < 25) {
       this.frames += 1;
       return sprites[4];
-    } else if (this.frames < 35) {
+    } else if (this.frames < 30) {
       this.frames += 1;
       return sprites[5];
     } else {
@@ -139,7 +139,7 @@ class Dino {
   // Jumping action
   jump() {
     const gravity = 1.2;
-    let jumpStrength = 20;
+    let jumpStrength = 25;
 
     if (this.isJumping) {
       if (this.jumps === 0 || !this.onGround()) {
@@ -186,7 +186,7 @@ class Dino {
 
   // Adds a fireball to the array to be shot by the player
   shootFireball() {
-    const startPos = [this.position[0] + 5, this.position[1] - 5];
+    const startPos = [this.position[0] + 30, this.position[1] + 20];
 
     const fireball = new Fireball({
       position: startPos,
@@ -230,14 +230,7 @@ class Dino {
   }
 
   // Draws the dino sprite
-  draw(ctx) {   
-    
-    //hitbox
-    // ctx.beginPath();
-    // ctx.fillStyle = "green";
-    // ctx.rect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
-    // ctx.stroke();
-
+  draw(ctx) {    
     const sprite = this.getSprite();
     
     ctx.drawImage(

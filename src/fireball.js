@@ -1,6 +1,6 @@
 // Width and height of a sprite
-const WIDTH = 30;
-const HEIGHT = 30;
+const WIDTH = 166;
+const HEIGHT = 84;
 
 // Creating array for fireball sprite
 let fireballSprites = [];
@@ -94,6 +94,12 @@ class Fireball {
 
   // Drawing a fireball
   draw(ctx) {
+
+    //hitbox
+    // ctx.beginPath();
+    // ctx.rect(this.hitbox().minX, this.hitbox().minY, this.hitbox().width, this.hitbox().height);
+    // ctx.stroke();
+
     const sprite = this.getSprite(fireballSprites);
 
     ctx.drawImage(

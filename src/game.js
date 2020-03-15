@@ -68,7 +68,7 @@ class Game {
   addEnemy(prevPos) {
     this.add(new Enemy({ 
       prevPos,
-      speed: 5, 
+      speed: 8, 
       game: this, 
       ctx: this.gameCtx 
     }));
@@ -105,7 +105,7 @@ class Game {
     if (type === 'fireball') {
       result = pos[0] > this.gameCanvas.width;
     } else if (type === 'enemy') {
-      result = pos[0] < 0;
+      result = pos[0] < -70;
     }
 
     return result;
@@ -114,8 +114,8 @@ class Game {
   // Gets a random position
   randomPosition(prevPos) {
     return [
-      this.gameCanvas.width + (prevPos[0] + Util.randomNum(100, 150)) + Util.randomNum(50, 150),
-      this.gameCanvas.height - Util.randomNum(200, 210)
+      this.gameCanvas.width + (prevPos[0] + Util.randomNum(50, 150)) + Util.randomNum(50, 150),
+      this.gameCanvas.height - Util.randomNum(180, 210)
     ];
   };
 
@@ -173,7 +173,7 @@ class Game {
     const backgroundImage = new Image();
     backgroundImage.src = '../dist/assets/images/game/background.png';
     backgroundImage.alt = 'Background';
-    this.background = new Background(backgroundCtx, backgroundCanvas, backgroundImage, 15);
+    this.background = new Background(backgroundCtx, backgroundCanvas, backgroundImage, 20);
   }
 
   // Storing all moving game objects in an array
@@ -231,7 +231,7 @@ class Game {
     let prevPos;
     if (this.enemies.length === 1) {
       const prevEnemy = this.enemies[this.enemies.length - 1];
-      prevPos = [10, 10];
+      prevPos = [prevEnemy.position[0], prevEnemy.position[1]];
     } else {
       prevPos = [0, 0];
     }
