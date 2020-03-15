@@ -121,19 +121,19 @@ class Game {
   setKeypresses() {
     this.gameCanvas.addEventListener('keydown', this.keyDownListener);
     this.gameCanvas.addEventListener('keyup', this.keyUpListener);
-    const replay = document.getElementById('replay-button');
-    const mainMenu = document.getElementById('game-over-main-menu-button');
-    replay.addEventListener('click', this.replay);
-    mainMenu.addEventListener('click', this.goToMainMenu);
+    this.gameCanvas.addEventListener('keydown', this.replay);
+    this.gameCanvas.addEventListener('keydown', this.goToMainMenu);
   }
 
-  // // Goes to main menu
-  goToMainMenu() {
-    // Force screen refresh to initiate new game
-    location.reload();
-    this.gameOverMenu.remove();
-    const mainMenu = document.getElementById('game-start-menu');
-    mainMenu.classList.add('active');
+  // Goes to main menu
+  goToMainMenu(e) {
+    if (e.key === 'q' || e.key === 'Q') {
+      // Force screen refresh to initiate new game
+      location.reload(true);
+      this.gameOverMenu.remove();
+      const mainMenu = document.getElementById('game-start-menu');
+      mainMenu.classList.add('active');
+    }
   }
 
   // Handler for key down
@@ -244,22 +244,24 @@ class Game {
   }
 
   // Replays a new game
-  replay() {
-    const dino = this.dino[0];
+  replay(e) {
+    if (e.key === 'r' || e.key === 'R') {
+      const dino = this.dino[0];
 
-    this.gameOverMenu.remove();
-    document.getElementById('game-canvas').focus();
+      this.gameOverMenu.remove();
+      document.getElementById('game-canvas').focus();
 
-    // Resetting game variables
-    this.score.score = 0;
-    this.gameOver = false;
-    dino.frames = 0;
-    dino.isHit = false;
-    this.fireballs = [];
-    this.enemies = [];
-    this.playerLives = 3;
+      // Resetting game variables
+      this.score.score = 0;
+      this.gameOver = false;
+      dino.frames = 0;
+      dino.isHit = false;
+      this.fireballs = [];
+      this.enemies = [];
+      this.playerLives = 3;
 
-    this.start();
+      this.start();
+    }
   }
 
   // Starts a game
