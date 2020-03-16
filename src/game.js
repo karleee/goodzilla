@@ -171,7 +171,7 @@ class Game {
   addBackground(backgroundCtx, backgroundCanvas) {
     // Background
     const backgroundImage = new Image();
-    backgroundImage.src = '../assets/images/game/background.png';
+    backgroundImage.src = '../dist/assets/images/game/background.png';
     backgroundImage.alt = 'Background';
     this.background = new Background(backgroundCtx, backgroundCanvas, backgroundImage, 20);
   }

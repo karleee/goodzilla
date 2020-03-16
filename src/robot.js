@@ -27,7 +27,7 @@ class Enemy {
     // Setting enemy image
     this.enemy = new Image();
     this.enemy.src = '../dist/assets/spritesheets/small_robot.png';
-    this.enemy.alt = 'Akuma enemy';
+    this.enemy.alt = 'Robot enemy';
   }
 
   // Gets enemy sprite
