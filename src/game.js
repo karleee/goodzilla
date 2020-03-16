@@ -196,7 +196,7 @@ class Game {
         const obj1 = fireballs[i];
         const obj2 = enemies[j];
 
-        if (obj1.collidedWith(obj2)) return;
+        if (!obj1.isCollided && obj1.collidedWith(obj2)) return;
       }
     }
   };
@@ -261,7 +261,7 @@ class Game {
   }
 
   // Starts a game
-  start() {        
+  start() {            
     this.gameCanvas.focus();
 
     if (!this.gameOver) {

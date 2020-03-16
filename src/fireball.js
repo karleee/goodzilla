@@ -1,10 +1,8 @@
-const Explosion = require('./explosion');
-
 // Width and height of a sprite
 const FIREBALL_WIDTH = 166;
 const FIREBALL_HEIGHT = 84;
-// const EXPLOSION_WIDTH = 128;
-// const EXPLOSION_HEIGHT = 80;
+const EXPLOSION_WIDTH = 128;
+const EXPLOSION_HEIGHT = 80;
 
 // Creating array for fireball sprite
 let fireballSprites = [];
@@ -14,15 +12,15 @@ for (let i = 0; i < 5; i++) {
 }
 
 // Creating array for explosion sprite
-// let explosionSprites = [];
+let explosionSprites = [];
 
-// for (let i = 0; i < 10; i++) {
-//   explosionSprites.push([EXPLOSION_WIDTH * i, 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT]);
-// }
+for (let i = 0; i < 10; i++) {
+  explosionSprites.push([EXPLOSION_WIDTH * i, 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT]);
+}
 
 const SPRITES = {
   fireballSprites,
-  // explosionSprites
+  explosionSprites
 }
 
 class Fireball {
@@ -39,10 +37,12 @@ class Fireball {
     this.fireball.src = '../dist/assets/spritesheets/fireball.png';
     this.fireball.alt = 'Fireball';
 
-    //testing explosion
-    // this.explosion = new Image();
-    // this.explosion.src = '../dist/assets/spritesheets/explosion.png';
-    // this.fireball.alt = 'Explosion';
+    // Setting explosion image
+    this.explosion = new Image();
+    this.explosion.src = '../dist/assets/spritesheets/explosion.png';
+    this.explosion.alt = 'Explosion';
+
+    // Setting collision boolean
     this.isCollided = false;
   }
 
@@ -69,36 +69,38 @@ class Fireball {
     }
   }
 
-  //testing...
-  // getExplosionSprite(sprites) {
-  //   if (this.frames < 5) {
-  //     this.frames += 1;
-  //     return sprites[0];
-  //   } else if (this.frames < 10) {
-  //     this.frames += 1;
-  //     return sprites[1];
-  //   } else if (this.frames < 15) {
-  //     this.frames += 1;
-  //     return sprites[2];
-  //   } else if (this.frames < 20) {
-  //     this.frames += 1;
-  //     return sprites[3];
-  //   } else if (this.frames < 25) {
-  //     this.frames += 1;
-  //     return sprites[4];
-  //   } else if (this.frames < 30) {
-  //     this.frames += 1;
-  //     return sprites[5];
-  //   } else {
-  //     this.frames = 0;
-  //     return sprites[5];
-  //   }
-  // }
+  // Gets explosion sprite
+  getExplosionSprite(sprites) {
+    if (this.frames < 5) {
+      this.frames += 1;
+      return sprites[0];
+    } else if (this.frames < 10) {
+      this.frames += 1;
+      return sprites[1];
+    } else if (this.frames < 15) {
+      this.frames += 1;
+      return sprites[2];
+    } else if (this.frames < 20) {
+      this.frames += 1;
+      return sprites[3];
+    } else if (this.frames < 25) {
+      this.frames += 1;
+      return sprites[4];
+    } else if (this.frames < 30) {
+      this.frames += 1;
+      return sprites[5];
+    } else {
+      this.frames = 0;
+      return sprites[5];
+    }
+  }
 
   // Moving a fireball
   move() {
-    this.position[0] += this.speed;
-    if (this.game.isOutOfBounds(this.position, 'fireball')) this.remove();
+    if (!this.isCollided) {
+      this.position[0] += this.speed;
+      if (this.game.isOutOfBounds(this.position, 'fireball')) this.remove();
+    }
   }
 
   // Hitbox for a fireball
@@ -124,7 +126,7 @@ class Fireball {
 
     if (collided) {
       this.isCollided = true;
-      // this.remove();
+      setTimeout(() => this.remove(), 1000);
       otherObject.remove();
       return true;
     }
@@ -134,8 +136,16 @@ class Fireball {
 
   // Drawing a fireball
   draw(ctx) {
-    const sprite = this.getSprite(SPRITES.fireballSprites);
-    const image = this.fireball;
+    let sprite;
+    let image;
+
+    if (this.isCollided) {
+      sprite = this.getExplosionSprite(SPRITES.explosionSprites);
+      image = this.explosion;
+    } else {
+      sprite = this.getSprite(SPRITES.fireballSprites);
+      image = this.fireball;
+    }
     
     ctx.drawImage(
       image,
@@ -148,18 +158,6 @@ class Fireball {
       sprite[2],
       sprite[3]
     );
-
-    if (this.isCollided) {
-      const explosion = new Explosion({
-        position: this.position,
-        game: this.game
-      });
-
-      this.remove();
-
-      //Come back to this! Explosions...
-      setTimeout(() => explosion.draw(this.ctx), 2000);
-    }
   }
 
   // Draws and updates fireball movement

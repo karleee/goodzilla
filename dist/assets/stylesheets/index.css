@@ -125,20 +125,8 @@ body {
   color: white;
   padding: 10px 15px;
   background: transparent;
-  /* border: 3px solid transparent; */
   animation: blinkingText 1.5s infinite;
 }
-
-/* .game-over-buttons-wrapper:hover > button {
-  animation-play-state: paused;
-  cursor: pointer;
-} */
-
-/* .game-over-buttons-wrapper .replay-button-wrapper:hover,
-.game-over-buttons-wrapper .game-over-main-menu-button-wrapper:hover {
-  border: 3px solid white;
-  border-radius: 10px;
-} */
 
 @keyframes blinkingText{
   0% { color: white; }
