@@ -52,7 +52,7 @@ class Dino {
     // Setting dino image
     this.dino = new Image();
 
-    this.dino.src = `../dist/assets/spritesheets/${this.dinoColor}_dino.png`;
+    this.dino.src = `../assets/spritesheets/${this.dinoColor}_dino.png`;
     this.dino.alt = `${this.dinoColor} dino`;
 
     // Setting dino status booleans
