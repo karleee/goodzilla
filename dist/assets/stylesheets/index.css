@@ -126,7 +126,7 @@ body {
   padding: 10px 15px;
   background: transparent;
   /* border: 3px solid transparent; */
-  animation: blinkingText 2s infinite;
+  animation: blinkingText 1.5s infinite;
 }
 
 /* .game-over-buttons-wrapper:hover > button {
