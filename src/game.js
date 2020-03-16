@@ -131,7 +131,7 @@ class Game {
   goToMainMenu(e) {
     if ((e.key === 'q' || e.key === 'Q') && this.gameOver) {
       // Force screen refresh to initiate new game
-      location.reload(true);
+      location.reload();
       this.gameOverMenu.remove();
       const mainMenu = document.getElementById('game-start-menu');
       mainMenu.classList.add('active');

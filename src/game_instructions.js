@@ -15,7 +15,7 @@ class GameInstructionsMenu {
 
   // Goes back to main menu
   backToMainMenu() {
-    location.reload(true);
+    location.reload();
   }
 
   // Drawing the game instructions menu
