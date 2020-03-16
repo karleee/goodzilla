@@ -113,17 +113,16 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 35%;
-  height: 20%;
-  margin-top: 25%;
+  height: 18%;
+  margin-top: 5%;
 }
 
 .game-over-buttons-wrapper > button {
   font-family: 'miniPixel';
-  font-size: 55px;
+  font-size: 65px;
   text-transform: uppercase;
   letter-spacing: 3px;
   color: white;
-  padding: 10px 15px;
   background: transparent;
   animation: blinkingText 1.5s infinite;
 }
@@ -165,6 +164,7 @@ body {
   font-family: 'miniPixel';
   text-transform: uppercase;
   font-size: 90px;
+  letter-spacing: 3px;
   color: var(--red);
 }
 
@@ -178,9 +178,10 @@ body {
 
 .choice-button-wrapper {
   font-family: 'miniPixel';
-  font-size: 45px;
+  font-size: 55px;
   color: var(--red);
   text-transform: uppercase;
+  letter-spacing: 2px;
   padding: 10px;
   text-align: left;
   background: transparent;
@@ -242,7 +243,7 @@ body {
 
 .character-links-wrapper button {
   font-family: 'miniPixel';
-  font-size: 35px;
+  font-size: 40px;
   color: var(--red);
   text-transform: uppercase;
   background: transparent;
@@ -358,7 +359,7 @@ body {
 
 .instructions-links-wrapper button{
   font-family: 'miniPixel';
-  font-size: 35px;
+  font-size: 40px;
   color: var(--red);
   text-transform: uppercase;
   background: transparent;

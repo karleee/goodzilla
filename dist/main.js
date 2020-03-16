@@ -159,7 +159,7 @@ eval("const GameStartMenu = __webpack_require__(/*! ./game_start */ \"./src/game
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("class GameOverMenu {\n  remove() {\n    const menu = document.getElementById('game-over-menu');\n    menu.classList.remove('active');\n  }\n\n  draw() {\n    const menu = document.getElementById('game-over-menu');\n    menu.classList.add('active');\n  }\n}\n\nmodule.exports = GameOverMenu;\n\n//# sourceURL=webpack:///./src/game_over.js?");
+eval("class GameOverMenu {\n  remove() {\n    const menu = document.getElementById('game-over-menu');\n    menu.classList.remove('active');\n  }\n\n  draw() {\n    const menu = document.getElementById('game-over-menu'); \n    menu.classList.add('active'); \n  }\n}\n\nmodule.exports = GameOverMenu;\n\n//# sourceURL=webpack:///./src/game_over.js?");
 
 /***/ }),
 

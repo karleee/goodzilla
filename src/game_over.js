@@ -5,8 +5,8 @@ class GameOverMenu {
   }
 
   draw() {
-    const menu = document.getElementById('game-over-menu');
-    menu.classList.add('active');
+    const menu = document.getElementById('game-over-menu'); 
+    menu.classList.add('active'); 
   }
 }
 
