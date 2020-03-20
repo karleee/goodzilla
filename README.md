@@ -12,7 +12,15 @@ Goodzilla is an endless runner and shooter game built in vanilla Javascript, ins
 <br>
 
 <kbd>
-<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main2.png" alt="Homepage" width="900px" border="1">
+<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main2.png" alt="Game over page" width="900px" border="1">
+</kbd>
+
+<br>
+<br>
+<br>
+
+<kbd>
+<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main3.png" alt="Game over page" width="900px" border="1">
 </kbd>
 
 
@@ -30,70 +38,55 @@ To see the most up to date version, please visit [the homepage](https://thegoodz
 To add more depth to the game, I created a player sprite customization option before the main game loop begins. Players are presented with four different colored versions of the mini Goodzilla sprite to choose from, complete with hovering effects and background artowrk integration.
 
 <kbd>
-<img src="https://github.com/karleee/nookbnb/blob/master/README_images/calendar_widget_main.png" alt="Homepage" width="900px" border="1">
+<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_character1.png" alt="Character menu page" width="900px" border="1">
 </kbd>
 
 <br>
 <br>
 
 **Challenges**
-> Building from Scratch
+> Navigating Game Screens
 
-The first challenge was to build out this widget without using any pre-built widgets or components from other libraries or resources. Although I did find fully functioning React Datepickers that I could have borrowed from, I found that styling these components seemed to be more difficult than simply coding up a widget from scratch. Many of these pre-built components also did not offer custom input boxes to store the user's chosen pair of dates; this was an incremental feature that I needed for my calendar widget so it was extremely important to keep that aspect in the final product.
-
-Another key point that we had to keep in mind was the overall organization of all of the different components in our application and separating out irrelevant code into new components. Planning out how to break apart the calendar widget into as few components as possible while still achieving the basic functionality of date picking and dynamic displaying proved to be quite time consuming.
+The first challenge was to implement a way for multiple game screens and to find a way that would allow the user to go back and forth between them. Although I am familiar with the use of components and additional libraries, my goal for this application was to create it completely in vanilla Javascript.
 
 <br>
 
-> Split Years
+> Canvas Rendering
 
-Another interesting challenge was determining how to account for split year portions of the calendar. For example, when the user landed on the calendar page that displayed both December and January, I needed to show the user the correct year for the month that they had chosen. The widget not only needed to keep track of the current year, but it also had to add or subtract the correct amount when the user clicked on the previous and next buttons.
+Having primarily used normal HTML tags for webpage rendering and self produced images made in Illustrator or Photoshop, using canvas to render the game was a new concept for me that took quite a bit of research to debug certain rendering blurriness and automatic image smoothing.
 
 <br>
 
-> Guests Amount
+> Enemy Spawning
 
-The last challenge was to create a customizable guest amount dropdown menu that was integrated into the calendar widget. More specifically, after doing some research, it seems that Airbnb **does not** include infants as a part of the total guests count. Additionally, they are enforcing a maximum amount of guests to the rental and the UI is dynamic enough to change appearances and functionality depending on whether or not the guest limit had been reached.
+Rendering enemies at a consistent speed and preventing them from stacking on top of each other (or at least a smaller chance of them clumping together) was another interesting challenge to tackle.
 
 <br>
 <br>
 
 **Solutions**
-> Building from Scratch: Solution
+> Navigating Game Screens: Solution
 
-For the first trial, I attempted to use the built in React datepicker, which uses hooks rather than functional components. Although this achieved the functionality that I wanted, there were some limitations. Styling for the built in widget seemed to be embedded within the widget itself; and rather than using traditional CSS or SCSS, it utilized props to manage custom style needs. Due to the time restraint and lack of familiarity with the code produced by this hook, I decided that it would take less time and increase efficiency if I created a calendar widget from scratch. Not only did this save time on the styling process, but it also increased my understanding and knowledge of how to build a custom calendar component.
-
-<br>
-
-> Split Years: Solution
-
-This was a tricky issue, but ultimately, my solution involved storing separate slices of local state in the datepicker component to keep track of the date that the user chose for check-in and the date that they chose for checkout.
-
-And to determine which text field to autofill, a clever solution that I thought of was to use a `clicks` slice of state to determine whether or not the user was choosing their check-in or checkout date. Inside of the click handler for the dates on the calendar, I was able to determine if it was their first or second click and then update the correct slice of state to trigger a re-render of the text box inputs.
+Because I was limited to vanilla Javascript, using components was a solution that I wanted to avoid. Instead, I chose to initially 'hide' the html elements that rendered each game screen and use event listeners on buttons to determine whether or not to 'reveal' a menu screen. The main reason why I chose to solve this problem this way was because of the flexibility to refactor a large portion of the code in these different menu screens later on; the functionality behind the `draw` function for each of these screens is almost identical, which makes it a great candidate to turn it into a utility or helper function later on.
 
 ``` javascript
-  // Handles auto fill in dates for check-in and checkout
-  handleDateClick(month, day, yr) {
-    let newClicks = this.state.clicks + 1;
-    let realMonthNum = month + 1;
-
-    this.setState({ clicks: newClicks });
- 
-    if (newClicks % 2 !== 0) {
-      this.setState({ selectedStartMonth: realMonthNum });
-      this.setState({ selectedStartDay: day });
-      this.setState({ selectedStartYr: yr });
-      this.resetEndDate();
-    } else {
-      this.setState({ selectedEndMonth: realMonthNum });
-      this.setState({ selectedEndDay: day });
-      this.setState({ selectedEndYr: yr });
-    }
+  // Drawing the game start menu
+  draw() {
+    const menu = document.getElementById('game-start-menu');
+    menu.classList.add('active');
+    this.clickHandler();
   }
 ```
+
 <br>
 
-> Guests Amount: Solution
+> Canvas Rendering: Solution
+
+Rendering or altering the style text and images through CSS proved to be an issue with how canvas rendered graphics; after doing my research, it appeared that setting a fixed size for the canvas directly in the attributes and avoiding styling via CSS was the solution to avoid blurry or warped text and images. 
+
+<br>
+
+> Enemy Spawning: Solution
 
 To create the guests amount dropdown menu, I created a HTML element that rendered the entirety of the dropdown menu; however, to make it appear as though it only activated when the user clicked on the guests options input bar, I initially set the opacity to 0. Once the user clicks on the input bar, a class is added to this HTML element and using styling, I changed the opacity to 1 for this specific class. This created the toggling effect that I was trying to accomplish with this piece of the calendar widget. And to create the editing buttons (adding and subtracting) in the dropdown menu I used icon tags that dynamically changed content depending on whether or not the maximum amount of guests had been reached.
 
