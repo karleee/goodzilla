@@ -12,7 +12,7 @@ Goodzilla is an endless runner and shooter game built in vanilla Javascript, ins
 <br>
 
 <kbd>
-<img src="https://github.com/karleee/nookbnb/blob/master/README_images/home_main2.png" alt="Homepage" width="900px" border="1">
+<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main2.png" alt="Homepage" width="900px" border="1">
 </kbd>
 
 
