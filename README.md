@@ -12,7 +12,7 @@ Goodzilla is an endless runner and shooter game built in vanilla Javascript, ins
 <br>
 
 <kbd>
-<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main2.png" alt="Homepage" width="900px" border="1">
+<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main2.png" alt="Game over page" width="900px" border="1">
 </kbd>
 
 
@@ -30,7 +30,7 @@ To see the most up to date version, please visit [the homepage](https://thegoodz
 To add more depth to the game, I created a player sprite customization option before the main game loop begins. Players are presented with four different colored versions of the mini Goodzilla sprite to choose from, complete with hovering effects and background artowrk integration.
 
 <kbd>
-<img src="https://github.com/karleee/nookbnb/blob/master/README_images/calendar_widget_main.png" alt="Homepage" width="900px" border="1">
+<img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_character1.png" alt="Character menu page" width="900px" border="1">
 </kbd>
 
 <br>
