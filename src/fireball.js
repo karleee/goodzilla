@@ -118,6 +118,7 @@ class Fireball {
     this.game.remove(this);
   };
 
+  // Checks if a fireball collided with an enemy
   collidedWith(otherObject) {
     const collided = (this.position[0] < otherObject.position[0] + otherObject.hitbox().width &&
       this.position[0] + this.hitbox().width > otherObject.position[0] &&
