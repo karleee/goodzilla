@@ -23,10 +23,6 @@ Goodzilla is an endless runner and shooter game built in vanilla Javascript, ins
 <img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main3.png" alt="Game over page" width="900px" border="1">
 </kbd>
 
-
-## How It Works
-To see the most up to date version, please visit [the homepage](https://thegoodzilla.herokuapp.com/dist/index.html).
-
 ## Technologies Used
 * Languages – Vanilla Javascript
 * Hosting – Heroku
