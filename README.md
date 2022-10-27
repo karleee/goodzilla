@@ -3,10 +3,6 @@
 ## Introduction
 Goodzilla is an endless runner and shooter game built in vanilla Javascript, inspired by the cinematic world of 'Godzilla'. As a nod to the classic mechagodzilla portrayed in the films, run through the streets of Tokyo as an adorable miniaturized form of the reptile and use your fire breathing abilities to defend the city from hordes of robots. 
 
-<br>
-<br>
-<br>
-
 <kbd>
 <img src="https://github.com/karleee/goodzilla/blob/master/README_images/goodzilla_main2.png" alt="Game over page" width="900px" border="1">
 </kbd>
